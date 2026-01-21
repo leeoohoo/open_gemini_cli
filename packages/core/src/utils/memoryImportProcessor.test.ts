@@ -378,6 +378,34 @@ describe('memoryImportProcessor', () => {
       );
     });
 
+    it('should ignore inline code imports inside list items', async () => {
+      const content = [
+        '- Example: `npm test -w @./should-not-import.md -- src/test.ts`',
+        'Outside @./should-import.md',
+      ].join('\n');
+      const projectRoot = testPath('test', 'project');
+      const basePath = testPath(projectRoot, 'src');
+      const importedContent = 'Imported 1';
+      mockedFs.access.mockResolvedValue(undefined);
+      mockedFs.readFile.mockResolvedValueOnce(importedContent);
+
+      const result = await processImports(
+        content,
+        basePath,
+        true,
+        undefined,
+        projectRoot,
+      );
+
+      expect(result.content).toContain(importedContent);
+      expect(result.content).toContain('@./should-not-import.md');
+
+      const comments = findMarkdownComments(result.content);
+      expect(comments.some((c) => c.includes('should-not-import.md'))).toBe(
+        false,
+      );
+    });
+
     it('should handle nested tokens and non-unique content correctly', async () => {
       // This test verifies the robust findCodeRegions implementation
       // that recursively walks the token tree and handles non-unique content
