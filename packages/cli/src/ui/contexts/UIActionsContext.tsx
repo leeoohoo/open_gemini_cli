@@ -8,9 +8,8 @@ import { createContext, useContext } from 'react';
 import { type Key } from '../hooks/useKeypress.js';
 import { type IdeIntegrationNudgeResult } from '../IdeIntegrationNudge.js';
 import { type FolderTrustChoice } from '../components/FolderTrustDialog.js';
-import { type AuthType, type EditorType } from '@google/gemini-cli-core';
+import { type EditorType } from '@google/gemini-cli-core';
 import { type LoadableSettingScope } from '../../config/settings.js';
-import type { AuthState } from '../types.js';
 import { type PermissionsDialogProps } from '../components/PermissionsModifyTrustDialog.js';
 import type { SessionInfo } from '../../utils/sessionUtils.js';
 
@@ -18,12 +17,6 @@ export interface UIActions {
   handleThemeSelect: (themeName: string, scope: LoadableSettingScope) => void;
   closeThemeDialog: () => void;
   handleThemeHighlight: (themeName: string | undefined) => void;
-  handleAuthSelect: (
-    authType: AuthType | undefined,
-    scope: LoadableSettingScope,
-  ) => void;
-  setAuthState: (state: AuthState) => void;
-  onAuthError: (error: string | null) => void;
   handleEditorSelect: (
     editorType: EditorType | undefined,
     scope: LoadableSettingScope,
@@ -52,12 +45,8 @@ export interface UIActions {
   handleDeleteSession: (session: SessionInfo) => Promise<void>;
   setQueueErrorMessage: (message: string | null) => void;
   popAllMessages: () => string | undefined;
-  handleApiKeySubmit: (apiKey: string) => Promise<void>;
-  handleApiKeyCancel: () => void;
   setBannerVisible: (visible: boolean) => void;
   setEmbeddedShellFocused: (value: boolean) => void;
-  setAuthContext: (context: { requiresRestart?: boolean }) => void;
-  handleRestart: () => void;
 }
 
 export const UIActionsContext = createContext<UIActions | null>(null);

@@ -927,7 +927,9 @@ export class GeminiClient {
 
       const result = await retryWithBackoff(apiCall, {
         onPersistent429: onPersistent429Callback,
-        authType: this.config.getContentGeneratorConfig()?.authType,
+        authType:
+          this.config.getContentGeneratorConfig()?.authType ??
+          this.config.getContentGeneratorConfig()?.provider,
         maxAttempts: availabilityMaxAttempts,
         getAvailabilityContext,
       });

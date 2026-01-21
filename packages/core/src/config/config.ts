@@ -15,6 +15,8 @@ import {
   AuthType,
   createContentGenerator,
   createContentGeneratorConfig,
+  type ModelProvider,
+  type OpenAIProviderSettings,
 } from '../core/contentGenerator.js';
 import { PromptRegistry } from '../prompts/prompt-registry.js';
 import { ResourceRegistry } from '../resources/resource-registry.js';
@@ -286,6 +288,8 @@ export interface SandboxConfig {
 export interface ConfigParameters {
   sessionId: string;
   embeddingModel?: string;
+  modelProvider?: ModelProvider;
+  openai?: OpenAIProviderSettings;
   sandbox?: SandboxConfig;
   targetDir: string;
   debugMode: boolean;
@@ -415,6 +419,8 @@ export class Config {
   private contentGenerator!: ContentGenerator;
   readonly modelConfigService: ModelConfigService;
   private readonly embeddingModel: string;
+  private readonly modelProvider: ModelProvider;
+  private readonly openaiSettings?: OpenAIProviderSettings;
   private readonly sandbox: SandboxConfig | undefined;
   private readonly targetDir: string;
   private workspaceContext: WorkspaceContext;
@@ -549,6 +555,8 @@ export class Config {
     this.sessionId = params.sessionId;
     this.embeddingModel =
       params.embeddingModel ?? DEFAULT_GEMINI_EMBEDDING_MODEL;
+    this.modelProvider = params.modelProvider ?? 'openai';
+    this.openaiSettings = params.openai;
     this.fileSystemService = new StandardFileSystemService();
     this.sandbox = params.sandbox;
     this.targetDir = path.resolve(params.targetDir);
@@ -847,11 +855,41 @@ export class Config {
       await this.contextManager.refresh();
     }
 
+    await this.initializeContentGenerator();
     await this.geminiClient.initialize();
+  }
+
+  async initializeContentGenerator(authMethod?: AuthType): Promise<void> {
+    if (this.contentGenerator) {
+      return;
+    }
+    const newContentGeneratorConfig = await createContentGeneratorConfig(
+      this,
+      authMethod,
+    );
+    this.contentGenerator = await createContentGenerator(
+      newContentGeneratorConfig,
+      this,
+      this.getSessionId(),
+    );
+    this.contentGeneratorConfig = newContentGeneratorConfig;
+    this.baseLlmClient = new BaseLlmClient(
+      this.contentGenerator,
+      this,
+      authMethod,
+    );
   }
 
   getContentGenerator(): ContentGenerator {
     return this.contentGenerator;
+  }
+
+  getModelProvider(): ModelProvider {
+    return this.modelProvider;
+  }
+
+  getOpenAISettings(): OpenAIProviderSettings | undefined {
+    return this.openaiSettings;
   }
 
   async refreshAuth(authMethod: AuthType) {
@@ -884,7 +922,11 @@ export class Config {
     this.contentGeneratorConfig = newContentGeneratorConfig;
 
     // Initialize BaseLlmClient now that the ContentGenerator is available
-    this.baseLlmClient = new BaseLlmClient(this.contentGenerator, this);
+    this.baseLlmClient = new BaseLlmClient(
+      this.contentGenerator,
+      this,
+      authMethod,
+    );
 
     const codeAssistServer = getCodeAssistServer(this);
     if (codeAssistServer?.projectId) {
@@ -963,7 +1005,7 @@ export class Config {
         );
       } else {
         throw new Error(
-          'BaseLlmClient not initialized. Ensure authentication has occurred and ContentGenerator is ready.',
+          'BaseLlmClient not initialized. Ensure ContentGenerator is ready.',
         );
       }
     }

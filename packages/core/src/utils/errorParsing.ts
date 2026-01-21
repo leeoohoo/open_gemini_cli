@@ -10,16 +10,16 @@ import type { UserTierId } from '../code_assist/types.js';
 import { AuthType } from '../core/contentGenerator.js';
 
 const RATE_LIMIT_ERROR_MESSAGE_USE_GEMINI =
-  '\nPlease wait and try again later. To increase your limits, request a quota increase through AI Studio, or switch to another /auth method';
+  '\nPlease wait and try again later. To increase your limits, request a quota increase through AI Studio or switch models.';
 const RATE_LIMIT_ERROR_MESSAGE_VERTEX =
-  '\nPlease wait and try again later. To increase your limits, request a quota increase through Vertex, or switch to another /auth method';
+  '\nPlease wait and try again later. To increase your limits, request a quota increase through Vertex or switch models.';
 const getRateLimitErrorMessageDefault = (
   fallbackModel: string = DEFAULT_GEMINI_FLASH_MODEL,
 ) =>
   `\nPossible quota limitations in place or slow response times detected. Switching to the ${fallbackModel} model for the rest of this session.`;
 
 function getRateLimitMessage(
-  authType?: AuthType,
+  authType?: AuthType | string,
   fallbackModel?: string,
 ): string {
   switch (authType) {
@@ -27,6 +27,8 @@ function getRateLimitMessage(
       return RATE_LIMIT_ERROR_MESSAGE_USE_GEMINI;
     case AuthType.USE_VERTEX_AI:
       return RATE_LIMIT_ERROR_MESSAGE_VERTEX;
+    case 'openai':
+      return '\nPlease wait and try again later, or reduce request rate.';
     default:
       return getRateLimitErrorMessageDefault(fallbackModel);
   }
@@ -34,7 +36,7 @@ function getRateLimitMessage(
 
 export function parseAndFormatApiError(
   error: unknown,
-  authType?: AuthType,
+  authType?: AuthType | string,
   userTier?: UserTierId,
   currentModel?: string,
   fallbackModel?: string,

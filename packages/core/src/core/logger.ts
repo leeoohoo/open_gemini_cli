@@ -7,7 +7,7 @@
 import path from 'node:path';
 import { promises as fs } from 'node:fs';
 import type { Content } from '@google/genai';
-import type { AuthType } from './contentGenerator.js';
+import type { AuthType, ModelProvider } from './contentGenerator.js';
 import type { Storage } from '../config/storage.js';
 import { debugLogger } from '../utils/debugLogger.js';
 import { coreEvents } from '../utils/events.js';
@@ -29,6 +29,7 @@ export interface LogEntry {
 export interface Checkpoint {
   history: Content[];
   authType?: AuthType;
+  provider?: ModelProvider | string;
 }
 
 // This regex matches any character that is NOT a letter (a-z, A-Z),

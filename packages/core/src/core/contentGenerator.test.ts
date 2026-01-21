@@ -54,6 +54,7 @@ describe('createContentGenerator', () => {
     } as unknown as Config;
     const generator = await createContentGenerator(
       {
+        provider: 'google',
         authType: AuthType.USE_GEMINI,
       },
       mockConfigWithFake,
@@ -75,6 +76,7 @@ describe('createContentGenerator', () => {
     } as unknown as Config;
     const generator = await createContentGenerator(
       {
+        provider: 'google',
         authType: AuthType.USE_GEMINI,
       },
       mockConfigWithRecordResponses,
@@ -89,6 +91,7 @@ describe('createContentGenerator', () => {
     );
     const generator = await createContentGenerator(
       {
+        provider: 'google',
         authType: AuthType.LOGIN_WITH_GOOGLE,
       },
       mockConfig,
@@ -106,6 +109,7 @@ describe('createContentGenerator', () => {
     );
     const generator = await createContentGenerator(
       {
+        provider: 'google',
         authType: AuthType.COMPUTE_ADC,
       },
       mockConfig,
@@ -133,6 +137,7 @@ describe('createContentGenerator', () => {
     vi.mocked(GoogleGenAI).mockImplementation(() => mockGenerator as never);
     const generator = await createContentGenerator(
       {
+        provider: 'google',
         apiKey: 'test-api-key',
         authType: AuthType.USE_GEMINI,
       },
@@ -165,6 +170,7 @@ describe('createContentGenerator', () => {
 
     await createContentGenerator(
       {
+        provider: 'google',
         authType: AuthType.LOGIN_WITH_GOOGLE,
       },
       mockConfig,
@@ -203,6 +209,7 @@ describe('createContentGenerator', () => {
 
     await createContentGenerator(
       {
+        provider: 'google',
         apiKey: 'test-api-key',
         authType: AuthType.USE_GEMINI,
       },
@@ -247,6 +254,7 @@ describe('createContentGenerator', () => {
 
     await createContentGenerator(
       {
+        provider: 'google',
         apiKey: 'test-api-key',
         authType: AuthType.USE_GEMINI,
       },
@@ -281,6 +289,7 @@ describe('createContentGenerator', () => {
 
     await createContentGenerator(
       {
+        provider: 'google',
         apiKey: 'test-api-key',
         authType: AuthType.USE_GEMINI,
       },
@@ -320,6 +329,7 @@ describe('createContentGenerator', () => {
     vi.mocked(GoogleGenAI).mockImplementation(() => mockGenerator as never);
     const generator = await createContentGenerator(
       {
+        provider: 'google',
         apiKey: 'test-api-key',
         authType: AuthType.USE_GEMINI,
       },

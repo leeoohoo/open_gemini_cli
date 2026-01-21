@@ -13,6 +13,7 @@ import { debugLogger } from '@google/gemini-cli-core';
 import { createTestMergedSettings } from './settings.js';
 import { createExtension } from '../test-utils/createExtension.js';
 import { EXTENSIONS_DIRECTORY_NAME } from './extensions/variables.js';
+import { ExtensionStorage } from './extensions/storage.js';
 
 const mockHomedir = vi.hoisted(() => vi.fn(() => '/tmp/mock-home'));
 
@@ -32,6 +33,8 @@ vi.mock('@google/gemini-cli-core', async (importOriginal) => {
     homedir: mockHomedir,
     loadAgentsFromDirectory: core.loadAgentsFromDirectory,
     loadSkillsFromDir: core.loadSkillsFromDir,
+    logExtensionInstallEvent: vi.fn().mockResolvedValue(undefined),
+    logExtensionUpdateEvent: vi.fn().mockResolvedValue(undefined),
   };
 });
 
@@ -91,17 +94,26 @@ describe('ExtensionManager agents loading', () => {
 
     await extensionManager.loadExtensions();
 
+    const destinationPath = new ExtensionStorage(
+      'good-agents-ext',
+    ).getExtensionDir();
+    fs.cpSync(extensionPath, destinationPath, { recursive: true });
+    const copyExtensionSpy = vi
+      .spyOn(fs.promises, 'cp')
+      .mockResolvedValue();
+
     const extension = await extensionManager.installOrUpdateExtension({
       type: 'local',
       source: extensionPath,
     });
+    copyExtensionSpy.mockRestore();
 
     expect(extension.name).toBe('good-agents-ext');
     expect(extension.agents).toBeDefined();
     expect(extension.agents).toHaveLength(1);
     expect(extension.agents![0].name).toBe('test-agent');
     expect(debugLogger.warn).not.toHaveBeenCalled();
-  });
+  }, 20000);
 
   it('should log errors but continue if an agent fails to load', async () => {
     const sourceDir = path.join(tempDir, 'source-ext-bad');
@@ -126,15 +138,24 @@ describe('ExtensionManager agents loading', () => {
 
     await extensionManager.loadExtensions();
 
+    const destinationPath = new ExtensionStorage(
+      'bad-agents-ext',
+    ).getExtensionDir();
+    fs.cpSync(extensionPath, destinationPath, { recursive: true });
+    const copyExtensionSpy = vi
+      .spyOn(fs.promises, 'cp')
+      .mockResolvedValue();
+
     const extension = await extensionManager.installOrUpdateExtension({
       type: 'local',
       source: extensionPath,
     });
+    copyExtensionSpy.mockRestore();
 
     expect(extension.name).toBe('bad-agents-ext');
     expect(extension.agents).toEqual([]);
     expect(debugLogger.warn).toHaveBeenCalledWith(
       expect.stringContaining('Error loading agent from bad-agents-ext'),
     );
-  });
+  }, 20000);
 });

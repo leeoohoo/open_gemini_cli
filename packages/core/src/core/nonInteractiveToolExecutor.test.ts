@@ -50,6 +50,7 @@ describe('executeToolCall', () => {
       getUsageStatisticsEnabled: () => true,
       getDebugMode: () => false,
       getContentGeneratorConfig: () => ({
+        provider: 'google',
         model: 'test-model',
         authType: 'oauth-personal',
       }),

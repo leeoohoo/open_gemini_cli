@@ -11,9 +11,6 @@ import { FolderTrustDialog } from './FolderTrustDialog.js';
 import { ConsentPrompt } from './ConsentPrompt.js';
 import { ThemeDialog } from './ThemeDialog.js';
 import { SettingsDialog } from './SettingsDialog.js';
-import { AuthInProgress } from '../auth/AuthInProgress.js';
-import { AuthDialog } from '../auth/AuthDialog.js';
-import { ApiAuthDialog } from '../auth/ApiAuthDialog.js';
 import { EditorSettingsDialog } from './EditorSettingsDialog.js';
 import { PrivacyNotice } from '../privacy/PrivacyNotice.js';
 import { ProQuotaDialog } from './ProQuotaDialog.js';
@@ -149,42 +146,6 @@ export const DialogManager = ({
   }
   if (uiState.isModelDialogOpen) {
     return <ModelDialog onClose={uiActions.closeModelDialog} />;
-  }
-  if (uiState.isAuthenticating) {
-    return (
-      <AuthInProgress
-        onTimeout={() => {
-          uiActions.onAuthError('Authentication cancelled.');
-        }}
-      />
-    );
-  }
-  if (uiState.isAwaitingApiKeyInput) {
-    return (
-      <Box flexDirection="column">
-        <ApiAuthDialog
-          key={uiState.apiKeyDefaultValue}
-          onSubmit={uiActions.handleApiKeySubmit}
-          onCancel={uiActions.handleApiKeyCancel}
-          error={uiState.authError}
-          defaultValue={uiState.apiKeyDefaultValue}
-        />
-      </Box>
-    );
-  }
-  if (uiState.isAuthDialogOpen) {
-    return (
-      <Box flexDirection="column">
-        <AuthDialog
-          config={config}
-          settings={settings}
-          setAuthState={uiActions.setAuthState}
-          authError={uiState.authError}
-          onAuthError={uiActions.onAuthError}
-          setAuthContext={uiActions.setAuthContext}
-        />
-      </Box>
-    );
   }
   if (uiState.isEditorDialogOpen) {
     return (

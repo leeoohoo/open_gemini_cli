@@ -1075,38 +1075,6 @@ describe('gemini.tsx main function exit codes', () => {
     }
   });
 
-  it('should exit with 41 for auth failure during sandbox setup', async () => {
-    const { loadCliConfig, parseArguments } = await import(
-      './config/config.js'
-    );
-    const { loadSettings } = await import('./config/settings.js');
-    const { loadSandboxConfig } = await import('./config/sandboxConfig.js');
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    vi.mocked(loadSandboxConfig).mockResolvedValue({} as any);
-    vi.mocked(loadCliConfig).mockResolvedValue({
-      refreshAuth: vi.fn().mockRejectedValue(new Error('Auth failed')),
-    } as unknown as Config);
-    vi.mocked(loadSettings).mockReturnValue(
-      createMockSettings({
-        merged: {
-          security: { auth: { selectedType: 'google', useExternal: false } },
-        },
-      }),
-    );
-    vi.mocked(parseArguments).mockResolvedValue({} as unknown as CliArgs);
-    vi.mock('./config/auth.js', () => ({
-      validateAuthMethod: vi.fn().mockReturnValue(null),
-    }));
-
-    try {
-      await main();
-      expect.fail('Should have thrown MockProcessExitError');
-    } catch (e) {
-      expect(e).toBeInstanceOf(MockProcessExitError);
-      expect((e as MockProcessExitError).code).toBe(41);
-    }
-  });
-
   it('should exit with 42 for session resume failure', async () => {
     const { loadCliConfig, parseArguments } = await import(
       './config/config.js'

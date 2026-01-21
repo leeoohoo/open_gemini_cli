@@ -194,6 +194,7 @@ describe('Gemini Client (client.ts)', () => {
     };
     const fileService = new FileDiscoveryService('/test/dir');
     const contentGeneratorConfig: ContentGeneratorConfig = {
+      provider: 'google',
       apiKey: 'test-key',
       vertexai: false,
       authType: AuthType.USE_GEMINI,

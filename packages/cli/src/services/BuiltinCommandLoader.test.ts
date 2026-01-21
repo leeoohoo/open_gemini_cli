@@ -67,7 +67,6 @@ vi.mock('@google/gemini-cli-core', async (importOriginal) => {
   };
 });
 
-vi.mock('../ui/commands/authCommand.js', () => ({ authCommand: {} }));
 vi.mock('../ui/commands/agentsCommand.js', () => ({
   agentsCommand: { name: 'agents' },
 }));

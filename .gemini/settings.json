@@ -1,5 +1,19 @@
 {
   "experimental": {
-    "skills": true
+    "skills": true,
+    "codebaseInvestigatorSettings": {
+      "model": "inherit",
+      "maxNumTurns": 150
+    }
+  },
+  "model": {
+    "provider": "openai",
+    "name": "deepseek-chat",
+    "openai": {
+      "baseUrl": "https://api.deepseek.com",
+      "model": "deepseek-chat",
+      "toolsEnabled": true,
+      "toolChoice": "auto"
+    }
   }
 }

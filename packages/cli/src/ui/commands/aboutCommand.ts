@@ -10,8 +10,6 @@ import process from 'node:process';
 import { MessageType, type HistoryItemAbout } from '../types.js';
 import {
   IdeClient,
-  UserAccountManager,
-  debugLogger,
   getVersion,
 } from '@google/gemini-cli-core';
 
@@ -33,16 +31,9 @@ export const aboutCommand: SlashCommand = {
     const modelVersion = context.services.config?.getModel() || 'Unknown';
     const cliVersion = await getVersion();
     const selectedAuthType =
-      context.services.settings.merged.security.auth.selectedType || '';
-    const gcpProject = process.env['GOOGLE_CLOUD_PROJECT'] || '';
+      context.services.config?.getContentGeneratorConfig()?.provider || '';
+    const gcpProject = '';
     const ideClient = await getIdeClientName(context);
-
-    const userAccountManager = new UserAccountManager();
-    const cachedAccount = userAccountManager.getCachedGoogleAccount();
-    debugLogger.log('AboutCommand: Retrieved cached Google account', {
-      cachedAccount,
-    });
-    const userEmail = cachedAccount ?? undefined;
 
     const aboutItem: Omit<HistoryItemAbout, 'id'> = {
       type: MessageType.ABOUT,
@@ -53,7 +44,6 @@ export const aboutCommand: SlashCommand = {
       selectedAuthType,
       gcpProject,
       ideClient,
-      userEmail,
     };
 
     context.ui.addItem(aboutItem);

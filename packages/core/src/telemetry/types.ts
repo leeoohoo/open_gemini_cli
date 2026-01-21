@@ -81,7 +81,8 @@ export class StartSessionEvent implements BaseTelemetryEvent {
 
     let useGemini = false;
     let useVertex = false;
-    if (generatorConfig && generatorConfig.authType) {
+    const provider = generatorConfig?.provider;
+    if (provider !== 'openai' && generatorConfig && generatorConfig.authType) {
       useGemini = generatorConfig.authType === AuthType.USE_GEMINI;
       useVertex = generatorConfig.authType === AuthType.USE_VERTEX_AI;
     }
@@ -94,8 +95,11 @@ export class StartSessionEvent implements BaseTelemetryEvent {
       typeof config.getSandbox() === 'string' || !!config.getSandbox();
     this.core_tools_enabled = (config.getCoreTools() ?? []).join(',');
     this.approval_mode = config.getApprovalMode();
-    this.api_key_enabled = useGemini || useVertex;
-    this.vertex_ai_enabled = useVertex;
+    this.api_key_enabled =
+      provider === 'openai'
+        ? !!generatorConfig?.openai?.apiKey
+        : useGemini || useVertex;
+    this.vertex_ai_enabled = provider !== 'openai' && useVertex;
     this.debug_enabled = config.getDebugMode();
     this.mcp_servers = mcpServers ? Object.keys(mcpServers).join(',') : '';
     this.telemetry_enabled = config.getTelemetryEnabled();
@@ -109,7 +113,7 @@ export class StartSessionEvent implements BaseTelemetryEvent {
     this.extensions_count = extensions.length;
     this.extensions = extensions.map((e) => e.name).join(',');
     this.extension_ids = extensions.map((e) => e.id).join(',');
-    this.auth_type = generatorConfig?.authType;
+    this.auth_type = provider ?? generatorConfig?.authType;
     if (toolRegistry) {
       const mcpTools = toolRegistry
         .getAllTools()
@@ -397,7 +401,9 @@ export class ApiRequestEvent implements BaseTelemetryEvent {
     const { 'gen_ai.response.model': _, ...requestConventionAttributes } =
       getConventionAttributes({
         model: this.model,
-        auth_type: config.getContentGeneratorConfig()?.authType,
+        auth_type:
+          config.getContentGeneratorConfig()?.provider ??
+          config.getContentGeneratorConfig()?.authType,
       });
     const attributes: LogAttributes = {
       ...getCommonAttributes(config),

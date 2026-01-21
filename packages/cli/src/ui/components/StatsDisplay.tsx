@@ -348,7 +348,7 @@ const ModelUsageTable: React.FC<{
         <>
           <Box marginTop={1} marginBottom={2}>
             <Text color={theme.text.primary}>
-              {`Usage limits span all sessions and reset daily.\n/auth to upgrade or switch to API key.`}
+              {`Usage limits span all sessions and reset daily.\nUse /model or /settings to adjust models or provider settings.`}
             </Text>
           </Box>
           <Text color={theme.text.secondary}>

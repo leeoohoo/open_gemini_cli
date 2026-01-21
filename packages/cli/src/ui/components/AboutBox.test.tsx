@@ -18,8 +18,8 @@ describe('AboutBox', () => {
     cliVersion: '1.0.0',
     osVersion: 'macOS',
     sandboxEnv: 'default',
-    modelVersion: 'gemini-pro',
-    selectedAuthType: 'oauth',
+    modelVersion: 'gpt-4o-mini',
+    selectedAuthType: 'openai',
     gcpProject: '',
     ideClient: '',
   };
@@ -30,10 +30,10 @@ describe('AboutBox', () => {
     expect(output).toContain('About Gemini CLI');
     expect(output).toContain('1.0.0');
     expect(output).toContain('mock-commit-hash');
-    expect(output).toContain('gemini-pro');
+    expect(output).toContain('gpt-4o-mini');
     expect(output).toContain('default');
     expect(output).toContain('macOS');
-    expect(output).toContain('OAuth');
+    expect(output).toContain('openai');
   });
 
   it.each([
@@ -48,10 +48,10 @@ describe('AboutBox', () => {
     expect(output).toContain(value);
   });
 
-  it('renders Auth Method correctly when not oauth', () => {
-    const props = { ...defaultProps, selectedAuthType: 'api-key' };
+  it('renders provider value correctly', () => {
+    const props = { ...defaultProps, selectedAuthType: 'custom-provider' };
     const { lastFrame } = render(<AboutBox {...props} />);
     const output = lastFrame();
-    expect(output).toContain('api-key');
+    expect(output).toContain('custom-provider');
   });
 });

@@ -26,7 +26,6 @@ import {
   CoreEvent,
   type UserFeedbackPayload,
   type ResumedSessionData,
-  AuthType,
 } from '@google/gemini-cli-core';
 
 // Mock coreEvents
@@ -118,7 +117,6 @@ vi.mock('./App.js', () => ({
 vi.mock('./hooks/useQuotaAndFallback.js');
 vi.mock('./hooks/useHistoryManager.js');
 vi.mock('./hooks/useThemeCommand.js');
-vi.mock('./auth/useAuth.js');
 vi.mock('./hooks/useEditorSettings.js');
 vi.mock('./hooks/useSettingsCommand.js');
 vi.mock('./hooks/useModelCommand.js');
@@ -153,7 +151,6 @@ vi.mock('../utils/cleanup.js');
 
 import { useHistory } from './hooks/useHistoryManager.js';
 import { useThemeCommand } from './hooks/useThemeCommand.js';
-import { useAuthCommand } from './auth/useAuth.js';
 import { useEditorSettings } from './hooks/useEditorSettings.js';
 import { useSettingsCommand } from './hooks/useSettingsCommand.js';
 import { useModelCommand } from './hooks/useModelCommand.js';
@@ -225,7 +222,6 @@ describe('AppContainer State Management', () => {
   const mockedUseQuotaAndFallback = useQuotaAndFallback as Mock;
   const mockedUseHistory = useHistory as Mock;
   const mockedUseThemeCommand = useThemeCommand as Mock;
-  const mockedUseAuthCommand = useAuthCommand as Mock;
   const mockedUseEditorSettings = useEditorSettings as Mock;
   const mockedUseSettingsCommand = useSettingsCommand as Mock;
   const mockedUseModelCommand = useModelCommand as Mock;
@@ -275,12 +271,6 @@ describe('AppContainer State Management', () => {
       openThemeDialog: vi.fn(),
       handleThemeSelect: vi.fn(),
       handleThemeHighlight: vi.fn(),
-    });
-    mockedUseAuthCommand.mockReturnValue({
-      authState: 'authenticated',
-      setAuthState: vi.fn(),
-      authError: null,
-      onAuthError: vi.fn(),
     });
     mockedUseEditorSettings.mockReturnValue({
       isEditorDialogOpen: false,
@@ -2151,11 +2141,11 @@ describe('AppContainer State Management', () => {
     });
   });
   describe('Banner Text', () => {
-    it('should render placeholder banner text for USE_GEMINI auth type', async () => {
+    it('should render placeholder banner text for openai provider', async () => {
       const config = makeFakeConfig();
       vi.spyOn(config, 'getContentGeneratorConfig').mockReturnValue({
-        authType: AuthType.USE_GEMINI,
-        apiKey: 'fake-key',
+        provider: 'openai',
+        openai: { apiKey: 'fake-key' },
       });
       let unmount: () => void;
       await act(async () => {

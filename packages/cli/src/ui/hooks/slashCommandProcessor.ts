@@ -9,7 +9,6 @@ import {
   useMemo,
   useEffect,
   useState,
-  createElement,
 } from 'react';
 import { type PartListUnion } from '@google/genai';
 import process from 'node:process';
@@ -55,14 +54,8 @@ import {
   type ExtensionUpdateStatus,
 } from '../state/extensions.js';
 import { appEvents } from '../../utils/events.js';
-import {
-  LogoutConfirmationDialog,
-  LogoutChoice,
-} from '../components/LogoutConfirmationDialog.js';
-import { runExitCleanup } from '../../utils/cleanup.js';
 
 interface SlashCommandProcessorActions {
-  openAuthDialog: () => void;
   openThemeDialog: () => void;
   openEditorDialog: () => void;
   openPrivacyNotice: () => void;
@@ -407,27 +400,8 @@ export const useSlashCommandProcessor = (
                     Date.now(),
                   );
                   return { type: 'handled' };
-                case 'logout':
-                  // Show logout confirmation dialog with Login/Exit options
-                  setCustomDialog(
-                    createElement(LogoutConfirmationDialog, {
-                      onSelect: async (choice: LogoutChoice) => {
-                        setCustomDialog(null);
-                        if (choice === LogoutChoice.LOGIN) {
-                          actions.openAuthDialog();
-                        } else {
-                          await runExitCleanup();
-                          process.exit(0);
-                        }
-                      },
-                    }),
-                  );
-                  return { type: 'handled' };
                 case 'dialog':
                   switch (result.dialog) {
-                    case 'auth':
-                      actions.openAuthDialog();
-                      return { type: 'handled' };
                     case 'theme':
                       actions.openThemeDialog();
                       return { type: 'handled' };

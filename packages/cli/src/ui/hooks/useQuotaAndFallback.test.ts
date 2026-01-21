@@ -20,7 +20,6 @@ import {
   type FallbackModelHandler,
   type FallbackIntent,
   UserTierId,
-  AuthType,
   TerminalQuotaError,
   makeFakeConfig,
   type GoogleApiError,
@@ -55,7 +54,7 @@ describe('useQuotaAndFallback', () => {
     // Spy on the method that requires the private field and mock its return.
     // This is cleaner than modifying the config class for tests.
     vi.spyOn(mockConfig, 'getContentGeneratorConfig').mockReturnValue({
-      authType: AuthType.LOGIN_WITH_GOOGLE,
+      provider: 'google',
     });
 
     mockHistoryManager = {
@@ -106,10 +105,10 @@ describe('useQuotaAndFallback', () => {
       return setFallbackHandlerSpy.mock.calls[0][0] as FallbackModelHandler;
     };
 
-    it('should return null and take no action if authType is not LOGIN_WITH_GOOGLE', async () => {
+    it('should return null and take no action if provider is not google', async () => {
       // Override the default mock from beforeEach for this specific test
       vi.spyOn(mockConfig, 'getContentGeneratorConfig').mockReturnValue({
-        authType: AuthType.USE_GEMINI,
+        provider: 'openai',
       });
 
       const handler = getRegisteredHandler();
@@ -153,7 +152,7 @@ describe('useQuotaAndFallback', () => {
         expect(message).toContain('Usage limit reached for gemini-pro.');
         expect(message).toContain('Access resets at'); // From getResetTimeMessage
         expect(message).toContain('/stats for usage details');
-        expect(message).toContain('/auth to switch to API key.');
+        expect(message).toContain('/model to switch models.');
 
         expect(mockHistoryManager.addItem).not.toHaveBeenCalled();
 

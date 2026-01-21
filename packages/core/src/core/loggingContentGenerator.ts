@@ -91,6 +91,17 @@ export class LoggingContentGenerator implements ContentGenerator {
     }
 
     const genConfig = this.config.getContentGeneratorConfig();
+    if (genConfig?.provider === 'openai') {
+      const baseUrl =
+        genConfig.openai?.baseUrl ?? 'https://api.openai.com/v1';
+      const url = new URL(baseUrl);
+      const port = url.port
+        ? parseInt(url.port, 10)
+        : url.protocol === 'https:'
+          ? 443
+          : 80;
+      return { address: url.hostname, port };
+    }
 
     // Case 2: Using an API key for Vertex AI.
     if (genConfig?.vertexai) {
@@ -105,6 +116,17 @@ export class LoggingContentGenerator implements ContentGenerator {
     // Case 3: Default to the public Gemini API endpoint.
     // This is used when an API key is provided but not for Vertex AI.
     return { address: `generativelanguage.googleapis.com`, port: 443 };
+  }
+
+  private getProviderTag(): string | undefined {
+    const genConfig = this.config.getContentGeneratorConfig();
+    if (!genConfig) {
+      return undefined;
+    }
+    if (genConfig.provider === 'openai') {
+      return 'openai';
+    }
+    return genConfig.authType;
   }
 
   private _logApiResponse(
@@ -134,7 +156,7 @@ export class LoggingContentGenerator implements ContentGenerator {
           candidates: responseCandidates,
           response_id: responseId,
         },
-        this.config.getContentGeneratorConfig()?.authType,
+        this.getProviderTag(),
         usageMetadata,
         responseText,
       ),
@@ -165,7 +187,7 @@ export class LoggingContentGenerator implements ContentGenerator {
           generate_content_config: generationConfig,
           server: serverDetails,
         },
-        this.config.getContentGeneratorConfig()?.authType,
+        this.getProviderTag(),
         errorType,
         isStructuredError(error)
           ? (error as StructuredError).status

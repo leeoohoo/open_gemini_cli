@@ -74,7 +74,7 @@ const mockConfig = {
   getActiveModel: () => PREVIEW_GEMINI_MODEL,
   getContentGeneratorConfig: () => ({
     model: 'test-model',
-    authType: 'oauth-personal',
+    provider: 'openai',
   }),
   getGeminiClient: () => null, // No client needed for these tests
   getShellExecutionConfig: () => ({ terminalWidth: 80, terminalHeight: 24 }),

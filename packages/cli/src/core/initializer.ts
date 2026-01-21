@@ -15,7 +15,6 @@ import {
   startupProfiler,
 } from '@google/gemini-cli-core';
 import { type LoadedSettings } from '../config/settings.js';
-import { performInitialAuth } from './auth.js';
 import { validateTheme } from './theme.js';
 
 export interface InitializationResult {
@@ -37,15 +36,11 @@ export async function initializeApp(
   settings: LoadedSettings,
 ): Promise<InitializationResult> {
   const authHandle = startupProfiler.start('authenticate');
-  const authError = await performInitialAuth(
-    config,
-    settings.merged.security.auth.selectedType,
-  );
+  const authError = null;
   authHandle?.end();
   const themeError = validateTheme(settings);
 
-  const shouldOpenAuthDialog =
-    settings.merged.security.auth.selectedType === undefined || !!authError;
+  const shouldOpenAuthDialog = false;
 
   logCliConfiguration(
     config,

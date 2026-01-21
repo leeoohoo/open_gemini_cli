@@ -20,7 +20,7 @@ import {
   loadTrustedFolders,
   type TrustedFoldersError,
 } from './config/trustedFolders.js';
-import { loadSettings, SettingScope } from './config/settings.js';
+import { loadSettings } from './config/settings.js';
 import { getStartupWarnings } from './utils/startupWarnings.js';
 import { getUserStartupWarnings } from './utils/userStartupWarnings.js';
 import { ConsolePatcher } from './ui/utils/ConsolePatcher.js';
@@ -40,8 +40,6 @@ import {
   type UserFeedbackPayload,
   sessionId,
   logUserPrompt,
-  AuthType,
-  getOauthClient,
   UserPromptEvent,
   debugLogger,
   recordSlowRender,
@@ -67,10 +65,8 @@ import {
   initializeApp,
   type InitializationResult,
 } from './core/initializer.js';
-import { validateAuthMethod } from './config/auth.js';
 import { runZedIntegration } from './zed-integration/zedIntegration.js';
 import { cleanupExpiredSessions } from './utils/sessionCleanup.js';
-import { validateNonInteractiveAuth } from './validateNonInterActiveAuth.js';
 import { checkForUpdates } from './ui/utils/updateCheck.js';
 import { handleAutoUpdate } from './utils/handleAutoUpdate.js';
 import { appEvents, AppEvent } from './utils/events.js';
@@ -347,62 +343,10 @@ export async function main() {
     validateDnsResolutionOrder(settings.merged.advanced.dnsResolutionOrder),
   );
 
-  // Set a default auth type if one isn't set or is set to a legacy type
-  if (
-    !settings.merged.security.auth.selectedType ||
-    settings.merged.security.auth.selectedType === AuthType.LEGACY_CLOUD_SHELL
-  ) {
-    if (
-      process.env['CLOUD_SHELL'] === 'true' ||
-      process.env['GEMINI_CLI_USE_COMPUTE_ADC'] === 'true'
-    ) {
-      settings.setValue(
-        SettingScope.User,
-        'selectedAuthType',
-        AuthType.COMPUTE_ADC,
-      );
-    }
-  }
-
   const partialConfig = await loadCliConfig(settings.merged, sessionId, argv, {
     projectHooks: settings.workspace.settings.hooks,
   });
   adminControlsListner.setConfig(partialConfig);
-
-  // Refresh auth to fetch remote admin settings from CCPA and before entering
-  // the sandbox because the sandbox will interfere with the Oauth2 web
-  // redirect.
-  if (
-    settings.merged.security.auth.selectedType &&
-    !settings.merged.security.auth.useExternal
-  ) {
-    try {
-      if (partialConfig.isInteractive()) {
-        const err = validateAuthMethod(
-          settings.merged.security.auth.selectedType,
-        );
-        if (err) {
-          throw new Error(err);
-        }
-
-        await partialConfig.refreshAuth(
-          settings.merged.security.auth.selectedType,
-        );
-      } else {
-        const authType = await validateNonInteractiveAuth(
-          settings.merged.security.auth.selectedType,
-          settings.merged.security.auth.useExternal,
-          partialConfig,
-          settings,
-        );
-        await partialConfig.refreshAuth(authType);
-      }
-    } catch (err) {
-      debugLogger.error('Error authenticating:', err);
-      await runExitCleanup();
-      process.exit(ExitCodes.FATAL_AUTHENTICATION_ERROR);
-    }
-  }
 
   const remoteAdminSettings = partialConfig.getRemoteAdminSettings();
   // Set remote admin settings if returned from CCPA.
@@ -417,10 +361,9 @@ export async function main() {
       : [];
     const sandboxConfig = await loadSandboxConfig(settings.merged, argv);
     // We intentionally omit the list of extensions here because extensions
-    // should not impact auth or setting up the sandbox.
+    // should not impact provider config or setting up the sandbox.
     // TODO(jacobr): refactor loadCliConfig so there is a minimal version
-    // that only initializes enough config to enable refreshAuth or find
-    // another way to decouple refreshAuth from requiring a config.
+    // that builds sandbox args without full initialization.
 
     if (sandboxConfig) {
       let stdinData = '';
@@ -515,20 +458,6 @@ export async function main() {
 
     // Handle --list-sessions flag
     if (config.getListSessions()) {
-      // Attempt auth for summary generation (gracefully skips if not configured)
-      const authType = settings.merged.security.auth.selectedType;
-      if (authType) {
-        try {
-          await config.refreshAuth(authType);
-        } catch (e) {
-          // Auth failed - continue without summary generation capability
-          debugLogger.debug(
-            'Auth failed for --list-sessions, summaries may not be generated:',
-            e,
-          );
-        }
-      }
-
       await listSessions(config);
       await runExitCleanup();
       process.exit(ExitCodes.SUCCESS);
@@ -574,15 +503,6 @@ export async function main() {
     const initAppHandle = startupProfiler.start('initialize_app');
     const initializationResult = await initializeApp(config, settings);
     initAppHandle?.end();
-
-    if (
-      settings.merged.security.auth.selectedType ===
-        AuthType.LOGIN_WITH_GOOGLE &&
-      config.isBrowserLaunchSuppressed()
-    ) {
-      // Do oauth before app renders to make copying the link possible.
-      await getOauthClient(settings.merged.security.auth.selectedType, config);
-    }
 
     if (config.getExperimentalZedIntegration()) {
       return runZedIntegration(config, settings, argv);
@@ -681,23 +601,18 @@ export async function main() {
     }
 
     const prompt_id = Math.random().toString(16).slice(2);
+    const providerTag =
+      config.getContentGeneratorConfig()?.provider ??
+      config.getContentGeneratorConfig()?.authType;
     logUserPrompt(
       config,
       new UserPromptEvent(
         input.length,
         prompt_id,
-        config.getContentGeneratorConfig()?.authType,
+        providerTag,
         input,
       ),
     );
-
-    const authType = await validateNonInteractiveAuth(
-      settings.merged.security.auth.selectedType,
-      settings.merged.security.auth.useExternal,
-      config,
-      settings,
-    );
-    await config.refreshAuth(authType);
 
     if (config.getDebugMode()) {
       debugLogger.log('Session ID: %s', sessionId);

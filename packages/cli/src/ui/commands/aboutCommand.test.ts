@@ -21,9 +21,6 @@ vi.mock('@google/gemini-cli-core', async (importOriginal) => {
         getDetectedIdeDisplayName: vi.fn().mockReturnValue('test-ide'),
       }),
     },
-    UserAccountManager: vi.fn().mockImplementation(() => ({
-      getCachedGoogleAccount: vi.fn().mockReturnValue('test-email@example.com'),
-    })),
     getVersion: vi.fn(),
   };
 });
@@ -39,14 +36,12 @@ describe('aboutCommand', () => {
         config: {
           getModel: vi.fn(),
           getIdeMode: vi.fn().mockReturnValue(true),
+          getContentGeneratorConfig: vi.fn().mockReturnValue({
+            provider: 'openai',
+          }),
         },
         settings: {
           merged: {
-            security: {
-              auth: {
-                selectedType: 'test-auth',
-              },
-            },
           },
         },
       },
@@ -59,7 +54,6 @@ describe('aboutCommand', () => {
     vi.spyOn(mockContext.services.config!, 'getModel').mockReturnValue(
       'test-model',
     );
-    process.env['GOOGLE_CLOUD_PROJECT'] = 'test-gcp-project';
     Object.defineProperty(process, 'platform', {
       value: 'test-os',
     });
@@ -93,10 +87,9 @@ describe('aboutCommand', () => {
       osVersion: 'test-os',
       sandboxEnv: 'no sandbox',
       modelVersion: 'test-model',
-      selectedAuthType: 'test-auth',
-      gcpProject: 'test-gcp-project',
+      selectedAuthType: 'openai',
+      gcpProject: '',
       ideClient: 'test-ide',
-      userEmail: 'test-email@example.com',
     });
   });
 
@@ -150,8 +143,8 @@ describe('aboutCommand', () => {
         osVersion: 'test-os',
         sandboxEnv: 'no sandbox',
         modelVersion: 'test-model',
-        selectedAuthType: 'test-auth',
-        gcpProject: 'test-gcp-project',
+        selectedAuthType: 'openai',
+        gcpProject: '',
         ideClient: '',
       }),
     );

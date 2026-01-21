@@ -140,7 +140,9 @@ describe('errors', () => {
     // Create mock config
     mockConfig = {
       getOutputFormat: vi.fn().mockReturnValue(OutputFormat.TEXT),
-      getContentGeneratorConfig: vi.fn().mockReturnValue({ authType: 'test' }),
+      getContentGeneratorConfig: vi
+        .fn()
+        .mockReturnValue({ provider: 'openai' }),
       getSessionId: vi.fn().mockReturnValue(TEST_SESSION_ID),
     } as unknown as Config;
   });
