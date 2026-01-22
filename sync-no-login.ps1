@@ -10,7 +10,7 @@ git pull origin main
 
 # 2. 切换到无登录分支
 Write-Host "🔄 切换到无登录分支..." -ForegroundColor Yellow
-git checkout leeoohoo/gemini_cli_no_login
+git checkout leeoohoo/open_gemini_cli
 
 # 3. 合并官方更新，但排除登录相关文件
 Write-Host "🔀 合并官方更新（排除登录文件）..." -ForegroundColor Yellow
@@ -57,7 +57,7 @@ foreach ($file in $loginFiles) {
 
 # 4. 提交合并
 Write-Host "💾 提交合并..." -ForegroundColor Yellow
-git commit -m "chore: merge upstream changes (main -> leeoohoo/gemini_cli_no_login)
+git commit -m "chore: merge upstream changes (main -> leeoohoo/open_gemini_cli)
 
 - Merge latest changes from official repository
 - Maintain no-login modifications
@@ -65,13 +65,13 @@ git commit -m "chore: merge upstream changes (main -> leeoohoo/gemini_cli_no_log
 
 # 5. 清理临时分支
 Write-Host "🧹 清理临时分支..." -ForegroundColor Yellow
-git checkout leeoohoo/gemini_cli_no_login
+git checkout leeoohoo/open_gemini_cli
 git merge temp-merge-branch --ff-only
 git branch -d temp-merge-branch
 
 # 6. 推送到你的仓库
 Write-Host "🚀 推送到个人仓库..." -ForegroundColor Green
-git push myrepo leeoohoo/gemini_cli_no_login
+git push myrepo leeoohoo/open_gemini_cli
 
 Write-Host "✅ 同步完成！" -ForegroundColor Green
 Write-Host ""

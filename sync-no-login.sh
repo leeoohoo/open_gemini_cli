@@ -13,7 +13,7 @@ git pull origin main
 
 # 2. 切换到无登录分支
 echo "🔄 切换到无登录分支..."
-git checkout leeoohoo/gemini_cli_no_login
+git checkout leeoohoo/open_gemini_cli
 
 # 3. 合并官方更新，但排除登录相关文件
 echo "🔀 合并官方更新（排除登录文件）..."
@@ -61,7 +61,7 @@ done
 
 # 4. 提交合并
 echo "💾 提交合并..."
-git commit -m "chore: merge upstream changes (main -> leeoohoo/gemini_cli_no_login)
+git commit -m "chore: merge upstream changes (main -> leeoohoo/open_gemini_cli)
 
 - Merge latest changes from official repository
 - Maintain no-login modifications
@@ -69,13 +69,13 @@ git commit -m "chore: merge upstream changes (main -> leeoohoo/gemini_cli_no_log
 
 # 5. 清理临时分支
 echo "🧹 清理临时分支..."
-git checkout leeoohoo/gemini_cli_no_login
+git checkout leeoohoo/open_gemini_cli
 git merge temp-merge-branch --ff-only
 git branch -d temp-merge-branch
 
 # 6. 推送到你的仓库
 echo "🚀 推送到个人仓库..."
-git push myrepo leeoohoo/gemini_cli_no_login
+git push myrepo leeoohoo/open_gemini_cli
 
 echo "✅ 同步完成！"
 echo ""

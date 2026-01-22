@@ -1,0 +1,658 @@
+/Users/lilei/project/my_project/open_gemini_cli/scripts/releasing/create-patch-pr.js-34-      description:
+/Users/lilei/project/my_project/open_gemini_cli/scripts/releasing/create-patch-pr.js:35:        'fully qualified package name with scope (e.g @google/gemini-cli)',
+/Users/lilei/project/my_project/open_gemini_cli/scripts/releasing/create-patch-pr.js-36-      string: true,
+/Users/lilei/project/my_project/open_gemini_cli/scripts/releasing/create-patch-pr.js:37:      default: '@google/gemini-cli',
+/Users/lilei/project/my_project/open_gemini_cli/scripts/releasing/create-patch-pr.js-38-    })
+--
+/Users/lilei/project/my_project/open_gemini_cli/README.md-4-[![Gemini CLI E2E (Chained)](https://github.com/google-gemini/gemini-cli/actions/workflows/chained_e2e.yml/badge.svg)](https://github.com/google-gemini/gemini-cli/actions/workflows/chained_e2e.yml)
+/Users/lilei/project/my_project/open_gemini_cli/README.md:5:[![Version](https://img.shields.io/npm/v/@google/gemini-cli)](https://www.npmjs.com/package/@google/gemini-cli)
+/Users/lilei/project/my_project/open_gemini_cli/README.md-6-[![License](https://img.shields.io/github/license/google-gemini/gemini-cli)](https://github.com/google-gemini/gemini-cli/blob/main/LICENSE)
+--
+/Users/lilei/project/my_project/open_gemini_cli/README.md-87-```bash
+/Users/lilei/project/my_project/open_gemini_cli/README.md:88:npm install -g @google/gemini-cli@preview
+/Users/lilei/project/my_project/open_gemini_cli/README.md-89-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/README.md-97-```bash
+/Users/lilei/project/my_project/open_gemini_cli/README.md:98:npm install -g @google/gemini-cli@latest
+/Users/lilei/project/my_project/open_gemini_cli/README.md-99-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/README.md-107-```bash
+/Users/lilei/project/my_project/open_gemini_cli/README.md:108:npm install -g @google/gemini-cli@nightly
+/Users/lilei/project/my_project/open_gemini_cli/README.md-109-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/README.md-373-- **[Changelog](./docs/changelogs/index.md)** - See recent notable updates.
+/Users/lilei/project/my_project/open_gemini_cli/README.md:374:- **[NPM Package](https://www.npmjs.com/package/@google/gemini-cli)** - Package
+/Users/lilei/project/my_project/open_gemini_cli/README.md-375-  registry.
+--
+/Users/lilei/project/my_project/open_gemini_cli/package.json.bak-1-{
+/Users/lilei/project/my_project/open_gemini_cli/package.json.bak:2:  "name": "@google/gemini-cli",
+/Users/lilei/project/my_project/open_gemini_cli/package.json.bak-3-  "version": "0.26.0-nightly.20260115.6cb3ae4e0",
+--
+/Users/lilei/project/my_project/open_gemini_cli/eslint.config.js-227-        {
+/Users/lilei/project/my_project/open_gemini_cli/eslint.config.js:228:          name: '@google/gemini-cli',
+/Users/lilei/project/my_project/open_gemini_cli/eslint.config.js:229:          message: 'Please use relative imports within the @google/gemini-cli package.',
+/Users/lilei/project/my_project/open_gemini_cli/eslint.config.js-230-        },
+--
+/Users/lilei/project/my_project/open_gemini_cli/README.md.bak-4-[![Gemini CLI E2E (Chained)](https://github.com/google-gemini/gemini-cli/actions/workflows/chained_e2e.yml/badge.svg)](https://github.com/google-gemini/gemini-cli/actions/workflows/chained_e2e.yml)
+/Users/lilei/project/my_project/open_gemini_cli/README.md.bak:5:[![Version](https://img.shields.io/npm/v/@google/gemini-cli)](https://www.npmjs.com/package/@google/gemini-cli)
+/Users/lilei/project/my_project/open_gemini_cli/README.md.bak-6-[![License](https://img.shields.io/github/license/google-gemini/gemini-cli)](https://github.com/google-gemini/gemini-cli/blob/main/LICENSE)
+--
+/Users/lilei/project/my_project/open_gemini_cli/README.md.bak-42-# Using npx (no installation required)
+/Users/lilei/project/my_project/open_gemini_cli/README.md.bak:43:npx @google/gemini-cli
+/Users/lilei/project/my_project/open_gemini_cli/README.md.bak-44-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/README.md.bak-48-```bash
+/Users/lilei/project/my_project/open_gemini_cli/README.md.bak:49:npm install -g @google/gemini-cli
+/Users/lilei/project/my_project/open_gemini_cli/README.md.bak-50-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/README.md.bak-68-```bash
+/Users/lilei/project/my_project/open_gemini_cli/README.md.bak:69:npm install -g @google/gemini-cli@preview
+/Users/lilei/project/my_project/open_gemini_cli/README.md.bak-70-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/README.md.bak-78-```bash
+/Users/lilei/project/my_project/open_gemini_cli/README.md.bak:79:npm install -g @google/gemini-cli@latest
+/Users/lilei/project/my_project/open_gemini_cli/README.md.bak-80-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/README.md.bak-88-```bash
+/Users/lilei/project/my_project/open_gemini_cli/README.md.bak:89:npm install -g @google/gemini-cli@nightly
+/Users/lilei/project/my_project/open_gemini_cli/README.md.bak-90-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/README.md.bak-354-- **[Changelog](./docs/changelogs/index.md)** - See recent notable updates.
+/Users/lilei/project/my_project/open_gemini_cli/README.md.bak:355:- **[NPM Package](https://www.npmjs.com/package/@google/gemini-cli)** - Package
+/Users/lilei/project/my_project/open_gemini_cli/README.md.bak-356-  registry.
+--
+/Users/lilei/project/my_project/open_gemini_cli/GEMINI.md-26-  `npm test -w @google/gemini-cli-core -- src/routing/modelRouterService.test.ts`
+/Users/lilei/project/my_project/open_gemini_cli/GEMINI.md:27:- _Common workspaces_: `@google/gemini-cli`, `@google/gemini-cli-core`.
+/Users/lilei/project/my_project/open_gemini_cli/GEMINI.md-28-
+--
+/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/gemini-3.md-9-```bash
+/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/gemini-3.md:10:npm install -g @google/gemini-cli@latest
+/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/gemini-3.md-11-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/installation.md-23-  ```bash
+/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/installation.md:24:  npm install -g @google/gemini-cli
+/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/installation.md-25-  ```
+--
+/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/installation.md-36-  # Execute the latest version from NPM without a global install
+/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/installation.md:37:  npx @google/gemini-cli
+/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/installation.md-38-  ```
+--
+/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/installation.md-104-- `@google/gemini-cli-core`: The backend, handling logic and tool execution.
+/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/installation.md:105:- `@google/gemini-cli`: The user-facing frontend.
+/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/installation.md-106-
+--
+/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/installation.md-115-- **NPM publication:** For publishing to the NPM registry, the TypeScript source
+/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/installation.md:116:  code in `@google/gemini-cli-core` and `@google/gemini-cli` is transpiled into
+/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/installation.md-117-  standard JavaScript using the TypeScript Compiler (`tsc`). The resulting
+--
+/Users/lilei/project/my_project/open_gemini_cli/scripts/build_sandbox.js-92-
+/Users/lilei/project/my_project/open_gemini_cli/scripts/build_sandbox.js:93:console.log('packing @google/gemini-cli ...');
+/Users/lilei/project/my_project/open_gemini_cli/scripts/build_sandbox.js-94-const cliPackageDir = join('packages', 'cli');
+--
+/Users/lilei/project/my_project/open_gemini_cli/scripts/build_sandbox.js-96-execSync(
+/Users/lilei/project/my_project/open_gemini_cli/scripts/build_sandbox.js:97:  `npm pack -w @google/gemini-cli --pack-destination ./packages/cli/dist`,
+/Users/lilei/project/my_project/open_gemini_cli/scripts/build_sandbox.js-98-  {
+--
+/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/index.md-17-```bash
+/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/index.md:18:npm install -g @google/gemini-cli
+/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/index.md-19-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/scripts/get-release-version.js-41-      description:
+/Users/lilei/project/my_project/open_gemini_cli/scripts/get-release-version.js:42:        'fully qualified package name with scope (e.g @google/gemini-cli)',
+/Users/lilei/project/my_project/open_gemini_cli/scripts/get-release-version.js-43-      string: true,
+/Users/lilei/project/my_project/open_gemini_cli/scripts/get-release-version.js:44:      default: '@google/gemini-cli',
+/Users/lilei/project/my_project/open_gemini_cli/scripts/get-release-version.js-45-    })
+--
+/Users/lilei/project/my_project/open_gemini_cli/scripts/releasing/patch-comment.js-142-- **GitHub Release**: [View release ${releaseTag}](https://github.com/${repo.owner}/${repo.repo}/releases/tag/${releaseTag})
+/Users/lilei/project/my_project/open_gemini_cli/scripts/releasing/patch-comment.js:143:- **NPM Package**: \`npm install @google/gemini-cli@${npmTag}\`
+/Users/lilei/project/my_project/open_gemini_cli/scripts/releasing/patch-comment.js-144-
+--
+/Users/lilei/project/my_project/open_gemini_cli/scripts/prepare-github-release.js-41-
+/Users/lilei/project/my_project/open_gemini_cli/scripts/prepare-github-release.js:42:// Update @google/gemini-cli
+/Users/lilei/project/my_project/open_gemini_cli/scripts/prepare-github-release.js-43-updatePackageJson('packages/cli/package.json', (pkg) => {
+--
+/Users/lilei/project/my_project/open_gemini_cli/codex_plan.md-1-# Task Analysis
+/Users/lilei/project/my_project/open_gemini_cli/codex_plan.md:2:- Goal: Identify all references to "@google/gemini-cli", capture contexts (especially README.md), and recommend whether to remove/replace/keep.
+/Users/lilei/project/my_project/open_gemini_cli/codex_plan.md-3-- Approach: Use ripgrep to list matches with line numbers, extract surrounding context for each file, then analyze intent.
+--
+/Users/lilei/project/my_project/open_gemini_cli/codex_plan.md-5-# Task List
+/Users/lilei/project/my_project/open_gemini_cli/codex_plan.md:6:1. Search repo for "@google/gemini-cli" with line numbers.
+/Users/lilei/project/my_project/open_gemini_cli/codex_plan.md-7-2. Extract context for each match (focus on README.md).
+--
+/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md-20-| ---------- | ----------------------------- | ----------------------------------------- |
+/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md:21:| CLI        | @google/gemini-cli            | @google-gemini/gemini-cli                 |
+/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md-22-| Core       | @google/gemini-cli-core       | @google-gemini/gemini-cli-core A2A Server |
+--
+/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md-46-```bash
+/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md:47:npm install -g @google/gemini-cli@preview
+/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md-48-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md-55-```bash
+/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md:56:npm install -g @google/gemini-cli@latest
+/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md-57-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md-65-```bash
+/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md:66:npm install -g @google/gemini-cli@nightly
+/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md-67-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md-376-
+/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md:377:- `npx -y @google/gemini-cli@latest --version` to validate the push worked as
+/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md-378-  expected if you were not doing a rc or dev tag
+/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md:379:- `npx -y @google/gemini-cli@<release tag> --version` to validate the tag pushed
+/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md-380-  appropriately
+/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md-381-- _This is destructive locally_
+/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md:382:  `npm uninstall @google/gemini-cli && npm uninstall -g @google/gemini-cli && npm cache clean --force &&  npm install @google/gemini-cli@<version>`
+/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md-383-- Smoke testing a basic run through of exercising a few llm commands and tools
+--
+/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md-459-- **What happens:** The `npm publish` command is run for the
+/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md:460:  `@google/gemini-cli-core` and `@google/gemini-cli` packages.
+/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md-461-- **Why:** This publishes them as standard Node.js packages. Users installing
+/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md:462:  via `npm install -g @google/gemini-cli` will download these packages, and
+/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md-463-  `npm` will handle installing the `@google/gemini-cli-core` dependency
+--
+/Users/lilei/project/my_project/open_gemini_cli/docs/cli/uninstall.md-39-
+/Users/lilei/project/my_project/open_gemini_cli/docs/cli/uninstall.md:40:If you installed the CLI globally (e.g., `npm install -g @google/gemini-cli`),
+/Users/lilei/project/my_project/open_gemini_cli/docs/cli/uninstall.md-41-use the `npm uninstall` command with the `-g` flag to remove it.
+--
+/Users/lilei/project/my_project/open_gemini_cli/docs/cli/uninstall.md-43-```bash
+/Users/lilei/project/my_project/open_gemini_cli/docs/cli/uninstall.md:44:npm uninstall -g @google/gemini-cli
+/Users/lilei/project/my_project/open_gemini_cli/docs/cli/uninstall.md-45-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-8-/Users/lilei/project/my_project/open_gemini_cli/package.json.bak-1-{
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:9:/Users/lilei/project/my_project/open_gemini_cli/package.json.bak:2:  "name": "@google/gemini-cli",
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-10-/Users/lilei/project/my_project/open_gemini_cli/package.json.bak-3-  "version": "0.26.0-nightly.20260115.6cb3ae4e0",
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-20-/Users/lilei/project/my_project/open_gemini_cli/README.md-4-[![Gemini CLI E2E (Chained)](https://github.com/google-gemini/gemini-cli/actions/workflows/chained_e2e.yml/badge.svg)](https://github.com/google-gemini/gemini-cli/actions/workflows/chained_e2e.yml)
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:21:/Users/lilei/project/my_project/open_gemini_cli/README.md:5:[![Version](https://img.shields.io/npm/v/@google/gemini-cli)](https://www.npmjs.com/package/@google/gemini-cli)
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-22-/Users/lilei/project/my_project/open_gemini_cli/README.md-6-[![License](https://img.shields.io/github/license/google-gemini/gemini-cli)](https://github.com/google-gemini/gemini-cli/blob/main/LICENSE)
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-24-/Users/lilei/project/my_project/open_gemini_cli/README.md-87-```bash
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:25:/Users/lilei/project/my_project/open_gemini_cli/README.md:88:npm install -g @google/gemini-cli@preview
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-26-/Users/lilei/project/my_project/open_gemini_cli/README.md-89-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-28-/Users/lilei/project/my_project/open_gemini_cli/README.md-97-```bash
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:29:/Users/lilei/project/my_project/open_gemini_cli/README.md:98:npm install -g @google/gemini-cli@latest
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-30-/Users/lilei/project/my_project/open_gemini_cli/README.md-99-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-32-/Users/lilei/project/my_project/open_gemini_cli/README.md-107-```bash
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:33:/Users/lilei/project/my_project/open_gemini_cli/README.md:108:npm install -g @google/gemini-cli@nightly
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-34-/Users/lilei/project/my_project/open_gemini_cli/README.md-109-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-36-/Users/lilei/project/my_project/open_gemini_cli/README.md-373-- **[Changelog](./docs/changelogs/index.md)** - See recent notable updates.
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:37:/Users/lilei/project/my_project/open_gemini_cli/README.md:374:- **[NPM Package](https://www.npmjs.com/package/@google/gemini-cli)** - Package
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-38-/Users/lilei/project/my_project/open_gemini_cli/README.md-375-  registry.
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-53-/Users/lilei/project/my_project/open_gemini_cli/eslint.config.js-227-        {
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:54:/Users/lilei/project/my_project/open_gemini_cli/eslint.config.js:228:          name: '@google/gemini-cli',
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:55:/Users/lilei/project/my_project/open_gemini_cli/eslint.config.js:229:          message: 'Please use relative imports within the @google/gemini-cli package.',
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-56-/Users/lilei/project/my_project/open_gemini_cli/eslint.config.js-230-        },
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-58-/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/gemini-3.md-9-```bash
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:59:/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/gemini-3.md:10:npm install -g @google/gemini-cli@latest
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-60-/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/gemini-3.md-11-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-62-/Users/lilei/project/my_project/open_gemini_cli/codex_plan.md-1-# Task Analysis
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:63:/Users/lilei/project/my_project/open_gemini_cli/codex_plan.md:2:- Goal: Identify all references to "@google/gemini-cli", capture contexts (especially README.md), and recommend whether to remove/replace/keep.
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-64-/Users/lilei/project/my_project/open_gemini_cli/codex_plan.md-3-- Approach: Use ripgrep to list matches with line numbers, extract surrounding context for each file, then analyze intent.
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-66-/Users/lilei/project/my_project/open_gemini_cli/codex_plan.md-5-# Task List
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:67:/Users/lilei/project/my_project/open_gemini_cli/codex_plan.md:6:1. Search repo for "@google/gemini-cli" with line numbers.
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-68-/Users/lilei/project/my_project/open_gemini_cli/codex_plan.md-7-2. Extract context for each match (focus on README.md).
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-70-/Users/lilei/project/my_project/open_gemini_cli/scripts/releasing/create-patch-pr.js-34-      description:
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:71:/Users/lilei/project/my_project/open_gemini_cli/scripts/releasing/create-patch-pr.js:35:        'fully qualified package name with scope (e.g @google/gemini-cli)',
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-72-/Users/lilei/project/my_project/open_gemini_cli/scripts/releasing/create-patch-pr.js-36-      string: true,
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:73:/Users/lilei/project/my_project/open_gemini_cli/scripts/releasing/create-patch-pr.js:37:      default: '@google/gemini-cli',
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-74-/Users/lilei/project/my_project/open_gemini_cli/scripts/releasing/create-patch-pr.js-38-    })
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-76-/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/installation.md-23-  ```bash
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:77:/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/installation.md:24:  npm install -g @google/gemini-cli
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-78-/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/installation.md-25-  ```
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-80-/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/installation.md-36-  # Execute the latest version from NPM without a global install
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:81:/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/installation.md:37:  npx @google/gemini-cli
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-82-/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/installation.md-38-  ```
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-85-/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/installation.md:104:- `@google/gemini-cli-core`: The backend, handling logic and tool execution.
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:86:/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/installation.md:105:- `@google/gemini-cli`: The user-facing frontend.
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-87-/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/installation.md-106-
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-89-/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/installation.md-115-- **NPM publication:** For publishing to the NPM registry, the TypeScript source
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:90:/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/installation.md:116:  code in `@google/gemini-cli-core` and `@google/gemini-cli` is transpiled into
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-91-/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/installation.md-117-  standard JavaScript using the TypeScript Compiler (`tsc`). The resulting
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-94-/Users/lilei/project/my_project/open_gemini_cli/GEMINI.md:26:  `npm test -w @google/gemini-cli-core -- src/routing/modelRouterService.test.ts`
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:95:/Users/lilei/project/my_project/open_gemini_cli/GEMINI.md:27:- _Common workspaces_: `@google/gemini-cli`, `@google/gemini-cli-core`.
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-96-/Users/lilei/project/my_project/open_gemini_cli/GEMINI.md-28-
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-104-/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/index.md-17-```bash
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:105:/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/index.md:18:npm install -g @google/gemini-cli
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-106-/Users/lilei/project/my_project/open_gemini_cli/docs/get-started/index.md-19-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-111-/Users/lilei/project/my_project/open_gemini_cli/docs/troubleshooting.md-80-      directory is in your `PATH`. You can update Gemini CLI using the command
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:112:/Users/lilei/project/my_project/open_gemini_cli/docs/troubleshooting.md:81:      `npm install -g @google/gemini-cli@latest`.
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-113-/Users/lilei/project/my_project/open_gemini_cli/docs/troubleshooting.md-82-    - If you are running `gemini` from source, ensure you are using the correct
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-119-/Users/lilei/project/my_project/open_gemini_cli/scripts/get-release-version.js-41-      description:
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:120:/Users/lilei/project/my_project/open_gemini_cli/scripts/get-release-version.js:42:        'fully qualified package name with scope (e.g @google/gemini-cli)',
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-121-/Users/lilei/project/my_project/open_gemini_cli/scripts/get-release-version.js-43-      string: true,
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:122:/Users/lilei/project/my_project/open_gemini_cli/scripts/get-release-version.js:44:      default: '@google/gemini-cli',
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-123-/Users/lilei/project/my_project/open_gemini_cli/scripts/get-release-version.js-45-    })
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-125-/Users/lilei/project/my_project/open_gemini_cli/scripts/releasing/patch-comment.js-142-- **GitHub Release**: [View release ${releaseTag}](https://github.com/${repo.owner}/${repo.repo}/releases/tag/${releaseTag})
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:126:/Users/lilei/project/my_project/open_gemini_cli/scripts/releasing/patch-comment.js:143:- **NPM Package**: \`npm install @google/gemini-cli@${npmTag}\`
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-127-/Users/lilei/project/my_project/open_gemini_cli/scripts/releasing/patch-comment.js-144-
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-129-/Users/lilei/project/my_project/open_gemini_cli/scripts/build_sandbox.js-92-
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:130:/Users/lilei/project/my_project/open_gemini_cli/scripts/build_sandbox.js:93:console.log('packing @google/gemini-cli ...');
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-131-/Users/lilei/project/my_project/open_gemini_cli/scripts/build_sandbox.js-94-const cliPackageDir = join('packages', 'cli');
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-133-/Users/lilei/project/my_project/open_gemini_cli/scripts/build_sandbox.js-96-execSync(
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:134:/Users/lilei/project/my_project/open_gemini_cli/scripts/build_sandbox.js:97:  `npm pack -w @google/gemini-cli --pack-destination ./packages/cli/dist`,
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-135-/Users/lilei/project/my_project/open_gemini_cli/scripts/build_sandbox.js-98-  {
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-145-/Users/lilei/project/my_project/open_gemini_cli/docs/changelogs/preview.md-10-```
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:146:/Users/lilei/project/my_project/open_gemini_cli/docs/changelogs/preview.md:11:npm install -g @google/gemini-cli@preview
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-147-/Users/lilei/project/my_project/open_gemini_cli/docs/changelogs/preview.md-12-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-149-/Users/lilei/project/my_project/open_gemini_cli/scripts/prepare-github-release.js-41-
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:150:/Users/lilei/project/my_project/open_gemini_cli/scripts/prepare-github-release.js:42:// Update @google/gemini-cli
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-151-/Users/lilei/project/my_project/open_gemini_cli/scripts/prepare-github-release.js-43-updatePackageJson('packages/cli/package.json', (pkg) => {
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-161-/Users/lilei/project/my_project/open_gemini_cli/docs/changelogs/index.md-25-  early preview where we’re looking for feedback!
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:162:/Users/lilei/project/my_project/open_gemini_cli/docs/changelogs/index.md:26:  - Install Preview: `npm install -g @google/gemini-cli@preview`
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-163-/Users/lilei/project/my_project/open_gemini_cli/docs/changelogs/index.md-27-  - Enable in `/settings`
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-165-/Users/lilei/project/my_project/open_gemini_cli/docs/changelogs/latest.md-8-```
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:166:/Users/lilei/project/my_project/open_gemini_cli/docs/changelogs/latest.md:9:npm install -g @google/gemini-cli
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-167-/Users/lilei/project/my_project/open_gemini_cli/docs/changelogs/latest.md-10-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-169-/Users/lilei/project/my_project/open_gemini_cli/docs/changelogs/releases.md-27-  early preview where we’re looking for feedback!
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:170:/Users/lilei/project/my_project/open_gemini_cli/docs/changelogs/releases.md:28:  - Install Preview: `npm install -g @google/gemini-cli@preview`
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-171-/Users/lilei/project/my_project/open_gemini_cli/docs/changelogs/releases.md-29-  - Enable in `/settings`
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-173-/Users/lilei/project/my_project/open_gemini_cli/docs/release-confidence.md-46-
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:174:/Users/lilei/project/my_project/open_gemini_cli/docs/release-confidence.md:47:- **Command:** `npx -y @google/gemini-cli@<tag> --version` must return the
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-175-/Users/lilei/project/my_project/open_gemini_cli/docs/release-confidence.md-48-  correct version without error.
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-177-/Users/lilei/project/my_project/open_gemini_cli/docs/release-confidence.md-63-  ```bash
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:178:/Users/lilei/project/my_project/open_gemini_cli/docs/release-confidence.md:64:  npm install -g @google/gemini-cli@preview
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-179-/Users/lilei/project/my_project/open_gemini_cli/docs/release-confidence.md-65-  ```
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-181-/Users/lilei/project/my_project/open_gemini_cli/docs/release-confidence.md-75-  - [ ] Uninstall any existing global version:
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:182:/Users/lilei/project/my_project/open_gemini_cli/docs/release-confidence.md:76:        `npm uninstall -g @google/gemini-cli`
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-183-/Users/lilei/project/my_project/open_gemini_cli/docs/release-confidence.md-77-  - [ ] Clear npx cache (optional but recommended): `npm cache clean --force`
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:184:/Users/lilei/project/my_project/open_gemini_cli/docs/release-confidence.md:78:  - [ ] Install the preview version: `npm install -g @google/gemini-cli@preview`
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-185-/Users/lilei/project/my_project/open_gemini_cli/docs/release-confidence.md-79-  - [ ] Verify version: `gemini --version`
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-187-/Users/lilei/project/my_project/open_gemini_cli/scripts/tests/get-release-version.test.js-59-      command.includes('npm view') &&
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:188:/Users/lilei/project/my_project/open_gemini_cli/scripts/tests/get-release-version.test.js:60:      command.includes('@google/gemini-cli@')
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-189-/Users/lilei/project/my_project/open_gemini_cli/scripts/tests/get-release-version.test.js-61-    ) {
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-191-/Users/lilei/project/my_project/open_gemini_cli/scripts/tests/get-release-version.test.js-129-          command.includes(
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:192:/Users/lilei/project/my_project/open_gemini_cli/scripts/tests/get-release-version.test.js:130:            'npm view @google/gemini-cli@0.9.0-nightly.20250917.deprecated deprecated',
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-193-/Users/lilei/project/my_project/open_gemini_cli/scripts/tests/get-release-version.test.js-131-          )
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-195-/Users/lilei/project/my_project/open_gemini_cli/scripts/tests/get-release-version.test.js-170-          command.includes(
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:196:/Users/lilei/project/my_project/open_gemini_cli/scripts/tests/get-release-version.test.js:171:            'npm view @google/gemini-cli@0.8.0-preview.0 version',
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-197-/Users/lilei/project/my_project/open_gemini_cli/scripts/tests/get-release-version.test.js-172-          )
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-199-/Users/lilei/project/my_project/open_gemini_cli/scripts/tests/get-release-version.test.js-177-          command.includes(
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:200:/Users/lilei/project/my_project/open_gemini_cli/scripts/tests/get-release-version.test.js:178:            'npm view @google/gemini-cli@0.8.0-preview.1 version',
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-201-/Users/lilei/project/my_project/open_gemini_cli/scripts/tests/get-release-version.test.js-179-          )
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-207-/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md-20-| ---------- | ----------------------------- | ----------------------------------------- |
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:208:/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md:21:| CLI        | @google/gemini-cli            | @google-gemini/gemini-cli                 |
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-209-/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md:22:| Core       | @google/gemini-cli-core       | @google-gemini/gemini-cli-core A2A Server |
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-213-/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md-46-```bash
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:214:/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md:47:npm install -g @google/gemini-cli@preview
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-215-/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md-48-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-217-/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md-55-```bash
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:218:/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md:56:npm install -g @google/gemini-cli@latest
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-219-/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md-57-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-221-/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md-65-```bash
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:222:/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md:66:npm install -g @google/gemini-cli@nightly
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-223-/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md-67-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-225-/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md-376-
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:226:/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md:377:- `npx -y @google/gemini-cli@latest --version` to validate the push worked as
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-227-/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md-378-  expected if you were not doing a rc or dev tag
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:228:/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md:379:- `npx -y @google/gemini-cli@<release tag> --version` to validate the tag pushed
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-229-/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md-380-  appropriately
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-230-/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md-381-- _This is destructive locally_
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:231:/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md:382:  `npm uninstall @google/gemini-cli && npm uninstall -g @google/gemini-cli && npm cache clean --force &&  npm install @google/gemini-cli@<version>`
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-232-/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md-383-- Smoke testing a basic run through of exercising a few llm commands and tools
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-234-/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md-459-- **What happens:** The `npm publish` command is run for the
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:235:/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md:460:  `@google/gemini-cli-core` and `@google/gemini-cli` packages.
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-236-/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md-461-- **Why:** This publishes them as standard Node.js packages. Users installing
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:237:/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md:462:  via `npm install -g @google/gemini-cli` will download these packages, and
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-238-/Users/lilei/project/my_project/open_gemini_cli/docs/releases.md:463:  `npm` will handle installing the `@google/gemini-cli-core` dependency
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-245-/Users/lilei/project/my_project/open_gemini_cli/docs/npm.md-2-
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:246:/Users/lilei/project/my_project/open_gemini_cli/docs/npm.md:3:This monorepo contains two main packages: `@google/gemini-cli` and
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-247-/Users/lilei/project/my_project/open_gemini_cli/docs/npm.md:4:`@google/gemini-cli-core`.
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-248-/Users/lilei/project/my_project/open_gemini_cli/docs/npm.md-5-
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:249:/Users/lilei/project/my_project/open_gemini_cli/docs/npm.md:6:## `@google/gemini-cli`
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-250-/Users/lilei/project/my_project/open_gemini_cli/docs/npm.md-7-
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-253-/Users/lilei/project/my_project/open_gemini_cli/docs/npm.md:13:`@google/gemini-cli-core`. This means that whether a user installs the package
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:254:/Users/lilei/project/my_project/open_gemini_cli/docs/npm.md:14:with `npm install -g @google/gemini-cli` or runs it directly with
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:255:/Users/lilei/project/my_project/open_gemini_cli/docs/npm.md:15:`npx @google/gemini-cli`, they are using this single, self-contained executable.
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-256-/Users/lilei/project/my_project/open_gemini_cli/docs/npm.md-16-
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-260-/Users/lilei/project/my_project/open_gemini_cli/docs/npm.md-61-  `build` script in the `cli` package, you can run
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:261:/Users/lilei/project/my_project/open_gemini_cli/docs/npm.md:62:  `npm run build --workspace @google/gemini-cli`.
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-262---
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-333-/Users/lilei/project/my_project/open_gemini_cli/README.md.bak-4-[![Gemini CLI E2E (Chained)](https://github.com/google-gemini/gemini-cli/actions/workflows/chained_e2e.yml/badge.svg)](https://github.com/google-gemini/gemini-cli/actions/workflows/chained_e2e.yml)
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:334:/Users/lilei/project/my_project/open_gemini_cli/README.md.bak:5:[![Version](https://img.shields.io/npm/v/@google/gemini-cli)](https://www.npmjs.com/package/@google/gemini-cli)
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-335-/Users/lilei/project/my_project/open_gemini_cli/README.md.bak-6-[![License](https://img.shields.io/github/license/google-gemini/gemini-cli)](https://github.com/google-gemini/gemini-cli/blob/main/LICENSE)
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-337-/Users/lilei/project/my_project/open_gemini_cli/README.md.bak-42-# Using npx (no installation required)
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:338:/Users/lilei/project/my_project/open_gemini_cli/README.md.bak:43:npx @google/gemini-cli
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-339-/Users/lilei/project/my_project/open_gemini_cli/README.md.bak-44-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-341-/Users/lilei/project/my_project/open_gemini_cli/README.md.bak-48-```bash
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:342:/Users/lilei/project/my_project/open_gemini_cli/README.md.bak:49:npm install -g @google/gemini-cli
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-343-/Users/lilei/project/my_project/open_gemini_cli/README.md.bak-50-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-345-/Users/lilei/project/my_project/open_gemini_cli/README.md.bak-68-```bash
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:346:/Users/lilei/project/my_project/open_gemini_cli/README.md.bak:69:npm install -g @google/gemini-cli@preview
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-347-/Users/lilei/project/my_project/open_gemini_cli/README.md.bak-70-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-349-/Users/lilei/project/my_project/open_gemini_cli/README.md.bak-78-```bash
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:350:/Users/lilei/project/my_project/open_gemini_cli/README.md.bak:79:npm install -g @google/gemini-cli@latest
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-351-/Users/lilei/project/my_project/open_gemini_cli/README.md.bak-80-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-353-/Users/lilei/project/my_project/open_gemini_cli/README.md.bak-88-```bash
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:354:/Users/lilei/project/my_project/open_gemini_cli/README.md.bak:89:npm install -g @google/gemini-cli@nightly
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-355-/Users/lilei/project/my_project/open_gemini_cli/README.md.bak-90-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-357-/Users/lilei/project/my_project/open_gemini_cli/README.md.bak-354-- **[Changelog](./docs/changelogs/index.md)** - See recent notable updates.
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:358:/Users/lilei/project/my_project/open_gemini_cli/README.md.bak:355:- **[NPM Package](https://www.npmjs.com/package/@google/gemini-cli)** - Package
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-359-/Users/lilei/project/my_project/open_gemini_cli/README.md.bak-356-  registry.
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-365-/Users/lilei/project/my_project/open_gemini_cli/package-lock.json-1385-    },
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:366:/Users/lilei/project/my_project/open_gemini_cli/package-lock.json:1386:    "node_modules/@google/gemini-cli": {
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-367-/Users/lilei/project/my_project/open_gemini_cli/package-lock.json-1387-      "resolved": "packages/cli",
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-389-/Users/lilei/project/my_project/open_gemini_cli/package-lock.json-18796-    "packages/cli": {
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:390:/Users/lilei/project/my_project/open_gemini_cli/package-lock.json:18797:      "name": "@google/gemini-cli",
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-391-/Users/lilei/project/my_project/open_gemini_cli/package-lock.json-18798-      "version": "0.26.0-nightly.20260115.6cb3ae4e0",
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-464-/Users/lilei/project/my_project/open_gemini_cli/docs/cli/sandbox.md-10-```bash
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:465:/Users/lilei/project/my_project/open_gemini_cli/docs/cli/sandbox.md:11:npm install -g @google/gemini-cli
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-466-/Users/lilei/project/my_project/open_gemini_cli/docs/cli/sandbox.md-12-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-490-/Users/lilei/project/my_project/open_gemini_cli/docs/cli/uninstall.md-39-
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:491:/Users/lilei/project/my_project/open_gemini_cli/docs/cli/uninstall.md:40:If you installed the CLI globally (e.g., `npm install -g @google/gemini-cli`),
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-492-/Users/lilei/project/my_project/open_gemini_cli/docs/cli/uninstall.md-41-use the `npm uninstall` command with the `-g` flag to remove it.
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-494-/Users/lilei/project/my_project/open_gemini_cli/docs/cli/uninstall.md-43-```bash
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:495:/Users/lilei/project/my_project/open_gemini_cli/docs/cli/uninstall.md:44:npm uninstall -g @google/gemini-cli
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-496-/Users/lilei/project/my_project/open_gemini_cli/docs/cli/uninstall.md-45-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-512-/Users/lilei/project/my_project/open_gemini_cli/docs/faq.md-50-If you installed it globally via `npm`, update it using the command
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:513:/Users/lilei/project/my_project/open_gemini_cli/docs/faq.md:51:`npm install -g @google/gemini-cli@latest`. If you compiled it from source, pull
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-514-/Users/lilei/project/my_project/open_gemini_cli/docs/faq.md-52-the latest changes from the repository, and then rebuild using the command
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-962-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-46-        type: 'major',
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:963:/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts:47:        name: '@google/gemini-cli',
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-964-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-48-      },
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-966-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-98-    mockGetInstallationInfo.mockReturnValue({
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:967:/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts:99:      updateCommand: 'npm i -g @google/gemini-cli@latest',
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-968-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-100-      updateMessage: 'Please update manually.',
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-970-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-165-    mockGetInstallationInfo.mockReturnValue({
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:971:/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts:166:      updateCommand: 'npm i -g @google/gemini-cli@latest',
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-972-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-167-      updateMessage: 'This is an additional message.',
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-974-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-184-      mockGetInstallationInfo.mockReturnValue({
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:975:/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts:185:        updateCommand: 'npm i -g @google/gemini-cli@latest',
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-976-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-186-        updateMessage: 'This is an additional message.',
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-978-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-201-      message:
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:979:/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts:202:        'Automatic update failed. Please try updating manually. (command: npm i -g @google/gemini-cli@2.0.0)',
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-980-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-203-    });
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-982-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-208-      mockGetInstallationInfo.mockReturnValue({
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:983:/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts:209:        updateCommand: 'npm i -g @google/gemini-cli@latest',
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-984-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-210-        updateMessage: 'This is an additional message.',
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-986-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-238-    mockGetInstallationInfo.mockReturnValue({
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:987:/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts:239:      updateCommand: 'npm i -g @google/gemini-cli@latest',
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-988-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-240-      updateMessage: 'This is an additional message.',
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-990-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-247-    expect(mockSpawn).toHaveBeenCalledWith(
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:991:/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts:248:      'npm i -g @google/gemini-cli@nightly',
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-992-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-249-      {
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-994-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-259-      mockGetInstallationInfo.mockReturnValue({
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:995:/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts:260:        updateCommand: 'npm i -g @google/gemini-cli@latest',
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-996-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-261-        updateMessage: 'This is an additional message.',
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-998-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-311-        type: 'major',
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:999:/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts:312:        name: '@google/gemini-cli',
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-1000-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-313-      },
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-1002-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-366-        type: 'major',
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:1003:/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts:367:        name: '@google/gemini-cli',
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-1004-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-368-      },
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-1068-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts-193-  it('should detect global pnpm installation', () => {
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:1069:/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts:194:    const pnpmPath = `/Users/test/.pnpm/global/5/node_modules/.pnpm/some-hash/node_modules/@google/gemini-cli/dist/index.js`;
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-1070-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts-195-    process.argv[1] = pnpmPath;
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-1072-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts-204-    expect(info.isGlobal).toBe(true);
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:1073:/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts:205:    expect(info.updateCommand).toBe('pnpm add -g @google/gemini-cli@latest');
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-1074-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts-206-    expect(info.updateMessage).toContain('Attempting to automatically update');
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-1076-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts-213-  it('should detect global yarn installation', () => {
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:1077:/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts:214:    const yarnPath = `/Users/test/.yarn/global/node_modules/@google/gemini-cli/dist/index.js`;
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-1078-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts-215-    process.argv[1] = yarnPath;
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-1080-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts-225-    expect(info.updateCommand).toBe(
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:1081:/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts:226:      'yarn global add @google/gemini-cli@latest',
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-1082-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts-227-    );
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-1084-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts-246-    expect(info.isGlobal).toBe(true);
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:1085:/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts:247:    expect(info.updateCommand).toBe('bun add -g @google/gemini-cli@latest');
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-1086-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts-248-    expect(info.updateMessage).toContain('Attempting to automatically update');
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-1088-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts-333-    expect(info.isGlobal).toBe(true);
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:1089:/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts:334:    expect(info.updateCommand).toBe('npm install -g @google/gemini-cli@latest');
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-1090-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts-335-    expect(info.updateMessage).toContain('Attempting to automatically update');
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-1092-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts-347-    const cliPath =
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:1093:/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts:348:      '/usr/local/lib/node_modules/@google/gemini-cli/dist/index.js';
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-1094-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts-349-    process.argv[1] = cliPath;
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-1100-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.ts-106-    if (realPath.includes('/.pnpm/global')) {
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:1101:/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.ts:107:      const updateCommand = 'pnpm add -g @google/gemini-cli@latest';
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-1102-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.ts-108-      return {
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-1104-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.ts-119-    if (realPath.includes('/.yarn/global')) {
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:1105:/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.ts:120:      const updateCommand = 'yarn global add @google/gemini-cli@latest';
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-1106-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.ts-121-      return {
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-1108-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.ts-139-    if (realPath.includes('/.bun/bin')) {
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:1109:/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.ts:140:      const updateCommand = 'bun add -g @google/gemini-cli@latest';
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-1110-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.ts-141-      return {
+--
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-1112-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.ts-172-    // Assume global npm
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt:1113:/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.ts:173:    const updateCommand = 'npm install -g @google/gemini-cli@latest';
+/Users/lilei/project/my_project/open_gemini_cli/reports/google-gemini-cli-all.txt-1114-/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.ts-174-    return {
+--
+/Users/lilei/project/my_project/open_gemini_cli/docs/troubleshooting.md-80-      directory is in your `PATH`. You can update Gemini CLI using the command
+/Users/lilei/project/my_project/open_gemini_cli/docs/troubleshooting.md:81:      `npm install -g @google/gemini-cli@latest`.
+/Users/lilei/project/my_project/open_gemini_cli/docs/troubleshooting.md-82-    - If you are running `gemini` from source, ensure you are using the correct
+--
+/Users/lilei/project/my_project/open_gemini_cli/docs/cli/sandbox.md-10-```bash
+/Users/lilei/project/my_project/open_gemini_cli/docs/cli/sandbox.md:11:npm install -g @google/gemini-cli
+/Users/lilei/project/my_project/open_gemini_cli/docs/cli/sandbox.md-12-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/docs/faq.md-50-If you installed it globally via `npm`, update it using the command
+/Users/lilei/project/my_project/open_gemini_cli/docs/faq.md:51:`npm install -g @google/gemini-cli@latest`. If you compiled it from source, pull
+/Users/lilei/project/my_project/open_gemini_cli/docs/faq.md-52-the latest changes from the repository, and then rebuild using the command
+--
+/Users/lilei/project/my_project/open_gemini_cli/docs/npm.md-2-
+/Users/lilei/project/my_project/open_gemini_cli/docs/npm.md:3:This monorepo contains two main packages: `@google/gemini-cli` and
+/Users/lilei/project/my_project/open_gemini_cli/docs/npm.md-4-`@google/gemini-cli-core`.
+/Users/lilei/project/my_project/open_gemini_cli/docs/npm.md-5-
+/Users/lilei/project/my_project/open_gemini_cli/docs/npm.md:6:## `@google/gemini-cli`
+/Users/lilei/project/my_project/open_gemini_cli/docs/npm.md-7-
+--
+/Users/lilei/project/my_project/open_gemini_cli/docs/npm.md-13-`@google/gemini-cli-core`. This means that whether a user installs the package
+/Users/lilei/project/my_project/open_gemini_cli/docs/npm.md:14:with `npm install -g @google/gemini-cli` or runs it directly with
+/Users/lilei/project/my_project/open_gemini_cli/docs/npm.md:15:`npx @google/gemini-cli`, they are using this single, self-contained executable.
+/Users/lilei/project/my_project/open_gemini_cli/docs/npm.md-16-
+--
+/Users/lilei/project/my_project/open_gemini_cli/docs/npm.md-61-  `build` script in the `cli` package, you can run
+/Users/lilei/project/my_project/open_gemini_cli/docs/npm.md:62:  `npm run build --workspace @google/gemini-cli`.
+--
+/Users/lilei/project/my_project/open_gemini_cli/docs/changelogs/releases.md-27-  early preview where we’re looking for feedback!
+/Users/lilei/project/my_project/open_gemini_cli/docs/changelogs/releases.md:28:  - Install Preview: `npm install -g @google/gemini-cli@preview`
+/Users/lilei/project/my_project/open_gemini_cli/docs/changelogs/releases.md-29-  - Enable in `/settings`
+--
+/Users/lilei/project/my_project/open_gemini_cli/docs/release-confidence.md-46-
+/Users/lilei/project/my_project/open_gemini_cli/docs/release-confidence.md:47:- **Command:** `npx -y @google/gemini-cli@<tag> --version` must return the
+/Users/lilei/project/my_project/open_gemini_cli/docs/release-confidence.md-48-  correct version without error.
+--
+/Users/lilei/project/my_project/open_gemini_cli/docs/release-confidence.md-63-  ```bash
+/Users/lilei/project/my_project/open_gemini_cli/docs/release-confidence.md:64:  npm install -g @google/gemini-cli@preview
+/Users/lilei/project/my_project/open_gemini_cli/docs/release-confidence.md-65-  ```
+--
+/Users/lilei/project/my_project/open_gemini_cli/docs/release-confidence.md-75-  - [ ] Uninstall any existing global version:
+/Users/lilei/project/my_project/open_gemini_cli/docs/release-confidence.md:76:        `npm uninstall -g @google/gemini-cli`
+/Users/lilei/project/my_project/open_gemini_cli/docs/release-confidence.md-77-  - [ ] Clear npx cache (optional but recommended): `npm cache clean --force`
+/Users/lilei/project/my_project/open_gemini_cli/docs/release-confidence.md:78:  - [ ] Install the preview version: `npm install -g @google/gemini-cli@preview`
+/Users/lilei/project/my_project/open_gemini_cli/docs/release-confidence.md-79-  - [ ] Verify version: `gemini --version`
+--
+/Users/lilei/project/my_project/open_gemini_cli/docs/changelogs/latest.md-8-```
+/Users/lilei/project/my_project/open_gemini_cli/docs/changelogs/latest.md:9:npm install -g @google/gemini-cli
+/Users/lilei/project/my_project/open_gemini_cli/docs/changelogs/latest.md-10-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/docs/changelogs/index.md-25-  early preview where we’re looking for feedback!
+/Users/lilei/project/my_project/open_gemini_cli/docs/changelogs/index.md:26:  - Install Preview: `npm install -g @google/gemini-cli@preview`
+/Users/lilei/project/my_project/open_gemini_cli/docs/changelogs/index.md-27-  - Enable in `/settings`
+--
+/Users/lilei/project/my_project/open_gemini_cli/package-lock.json-1385-    },
+/Users/lilei/project/my_project/open_gemini_cli/package-lock.json:1386:    "node_modules/@google/gemini-cli": {
+/Users/lilei/project/my_project/open_gemini_cli/package-lock.json-1387-      "resolved": "packages/cli",
+--
+/Users/lilei/project/my_project/open_gemini_cli/package-lock.json-18796-    "packages/cli": {
+/Users/lilei/project/my_project/open_gemini_cli/package-lock.json:18797:      "name": "@google/gemini-cli",
+/Users/lilei/project/my_project/open_gemini_cli/package-lock.json-18798-      "version": "0.26.0-nightly.20260115.6cb3ae4e0",
+--
+/Users/lilei/project/my_project/open_gemini_cli/scripts/tests/get-release-version.test.js-59-      command.includes('npm view') &&
+/Users/lilei/project/my_project/open_gemini_cli/scripts/tests/get-release-version.test.js:60:      command.includes('@google/gemini-cli@')
+/Users/lilei/project/my_project/open_gemini_cli/scripts/tests/get-release-version.test.js-61-    ) {
+--
+/Users/lilei/project/my_project/open_gemini_cli/scripts/tests/get-release-version.test.js-129-          command.includes(
+/Users/lilei/project/my_project/open_gemini_cli/scripts/tests/get-release-version.test.js:130:            'npm view @google/gemini-cli@0.9.0-nightly.20250917.deprecated deprecated',
+/Users/lilei/project/my_project/open_gemini_cli/scripts/tests/get-release-version.test.js-131-          )
+--
+/Users/lilei/project/my_project/open_gemini_cli/scripts/tests/get-release-version.test.js-170-          command.includes(
+/Users/lilei/project/my_project/open_gemini_cli/scripts/tests/get-release-version.test.js:171:            'npm view @google/gemini-cli@0.8.0-preview.0 version',
+/Users/lilei/project/my_project/open_gemini_cli/scripts/tests/get-release-version.test.js-172-          )
+--
+/Users/lilei/project/my_project/open_gemini_cli/scripts/tests/get-release-version.test.js-177-          command.includes(
+/Users/lilei/project/my_project/open_gemini_cli/scripts/tests/get-release-version.test.js:178:            'npm view @google/gemini-cli@0.8.0-preview.1 version',
+/Users/lilei/project/my_project/open_gemini_cli/scripts/tests/get-release-version.test.js-179-          )
+--
+/Users/lilei/project/my_project/open_gemini_cli/docs/changelogs/preview.md-10-```
+/Users/lilei/project/my_project/open_gemini_cli/docs/changelogs/preview.md:11:npm install -g @google/gemini-cli@preview
+/Users/lilei/project/my_project/open_gemini_cli/docs/changelogs/preview.md-12-```
+--
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts-193-  it('should detect global pnpm installation', () => {
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts:194:    const pnpmPath = `/Users/test/.pnpm/global/5/node_modules/.pnpm/some-hash/node_modules/@google/gemini-cli/dist/index.js`;
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts-195-    process.argv[1] = pnpmPath;
+--
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts-204-    expect(info.isGlobal).toBe(true);
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts:205:    expect(info.updateCommand).toBe('pnpm add -g @google/gemini-cli@latest');
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts-206-    expect(info.updateMessage).toContain('Attempting to automatically update');
+--
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts-213-  it('should detect global yarn installation', () => {
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts:214:    const yarnPath = `/Users/test/.yarn/global/node_modules/@google/gemini-cli/dist/index.js`;
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts-215-    process.argv[1] = yarnPath;
+--
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts-225-    expect(info.updateCommand).toBe(
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts:226:      'yarn global add @google/gemini-cli@latest',
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts-227-    );
+--
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts-246-    expect(info.isGlobal).toBe(true);
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts:247:    expect(info.updateCommand).toBe('bun add -g @google/gemini-cli@latest');
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts-248-    expect(info.updateMessage).toContain('Attempting to automatically update');
+--
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts-333-    expect(info.isGlobal).toBe(true);
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts:334:    expect(info.updateCommand).toBe('npm install -g @google/gemini-cli@latest');
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts-335-    expect(info.updateMessage).toContain('Attempting to automatically update');
+--
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts-347-    const cliPath =
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts:348:      '/usr/local/lib/node_modules/@google/gemini-cli/dist/index.js';
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.test.ts-349-    process.argv[1] = cliPath;
+--
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-46-        type: 'major',
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts:47:        name: '@google/gemini-cli',
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-48-      },
+--
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-98-    mockGetInstallationInfo.mockReturnValue({
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts:99:      updateCommand: 'npm i -g @google/gemini-cli@latest',
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-100-      updateMessage: 'Please update manually.',
+--
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-165-    mockGetInstallationInfo.mockReturnValue({
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts:166:      updateCommand: 'npm i -g @google/gemini-cli@latest',
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-167-      updateMessage: 'This is an additional message.',
+--
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-184-      mockGetInstallationInfo.mockReturnValue({
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts:185:        updateCommand: 'npm i -g @google/gemini-cli@latest',
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-186-        updateMessage: 'This is an additional message.',
+--
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-201-      message:
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts:202:        'Automatic update failed. Please try updating manually. (command: npm i -g @google/gemini-cli@2.0.0)',
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-203-    });
+--
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-208-      mockGetInstallationInfo.mockReturnValue({
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts:209:        updateCommand: 'npm i -g @google/gemini-cli@latest',
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-210-        updateMessage: 'This is an additional message.',
+--
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-238-    mockGetInstallationInfo.mockReturnValue({
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts:239:      updateCommand: 'npm i -g @google/gemini-cli@latest',
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-240-      updateMessage: 'This is an additional message.',
+--
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-247-    expect(mockSpawn).toHaveBeenCalledWith(
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts:248:      'npm i -g @google/gemini-cli@nightly',
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-249-      {
+--
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-259-      mockGetInstallationInfo.mockReturnValue({
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts:260:        updateCommand: 'npm i -g @google/gemini-cli@latest',
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-261-        updateMessage: 'This is an additional message.',
+--
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-311-        type: 'major',
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts:312:        name: '@google/gemini-cli',
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-313-      },
+--
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-366-        type: 'major',
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts:367:        name: '@google/gemini-cli',
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/handleAutoUpdate.test.ts-368-      },
+--
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.ts-106-    if (realPath.includes('/.pnpm/global')) {
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.ts:107:      const updateCommand = 'pnpm add -g @google/gemini-cli@latest';
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.ts-108-      return {
+--
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.ts-119-    if (realPath.includes('/.yarn/global')) {
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.ts:120:      const updateCommand = 'yarn global add @google/gemini-cli@latest';
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.ts-121-      return {
+--
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.ts-139-    if (realPath.includes('/.bun/bin')) {
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.ts:140:      const updateCommand = 'bun add -g @google/gemini-cli@latest';
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.ts-141-      return {
+--
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.ts-172-    // Assume global npm
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.ts:173:    const updateCommand = 'npm install -g @google/gemini-cli@latest';
+/Users/lilei/project/my_project/open_gemini_cli/packages/cli/src/utils/installationInfo.ts-174-    return {

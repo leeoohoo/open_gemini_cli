@@ -2,7 +2,7 @@
 
 [![Gemini CLI CI](https://github.com/google-gemini/gemini-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/google-gemini/gemini-cli/actions/workflows/ci.yml)
 [![Gemini CLI E2E (Chained)](https://github.com/google-gemini/gemini-cli/actions/workflows/chained_e2e.yml/badge.svg)](https://github.com/google-gemini/gemini-cli/actions/workflows/chained_e2e.yml)
-[![Version](https://img.shields.io/npm/v/@google/gemini-cli)](https://www.npmjs.com/package/@google/gemini-cli)
+[![Version](https://img.shields.io/npm/v/@leeoohoo/open_gemini_cli)](https://www.npmjs.com/package/@leeoohoo/open_gemini_cli)
 [![License](https://img.shields.io/github/license/google-gemini/gemini-cli)](https://github.com/google-gemini/gemini-cli/blob/main/LICENSE)
 [![View Code Wiki](https://www.gstatic.com/_/boq-sdlc-agents-ui/_/r/YUi5dj2UWvE.svg)](https://codewiki.google/github.com/google-gemini/gemini-cli)
 
@@ -40,13 +40,13 @@ Learn all about Gemini CLI in our [documentation](https://geminicli.com/docs/).
 
 ```bash
 # Using npx (no installation required)
-npx @google/gemini-cli
+npx @leeoohoo/open_gemini_cli
 ```
 
 #### Install globally with npm
 
 ```bash
-npm install -g @google/gemini-cli
+npm install -g @leeoohoo/open_gemini_cli
 ```
 
 #### Install globally with Homebrew (macOS/Linux)
@@ -54,6 +54,28 @@ npm install -g @google/gemini-cli
 ```bash
 brew install gemini-cli
 ```
+
+## 变更说明 (Modifications)
+
+本项目基于 Google Gemini
+CLI 官方开源项目修改，目标是在无需 OAuth 登录的环境中提供更灵活的模型与配置支持。
+
+主要变更：
+
+- 移除了 Google OAuth 登录认证系统
+- 删除了认证对话框和 /auth 命令
+- 移除了所有认证配置相关逻辑
+- 添加了 OpenAI 配置支持
+- 支持无登录模式
+- 添加了 OpenAI 模型支持
+
+特点与优势：
+
+- 无需登录即可使用，降低初始化成本
+- 可配置 OpenAI 相关模型，扩展模型选择
+- 保持与官方版本的功能演进思路一致，便于同步更新
+
+维护者：leeoohoo
 
 ## Release Cadence and Tags
 
@@ -66,7 +88,7 @@ releases will not have been fully vetted and may contain regressions or other
 outstanding issues. Please help us test and install with `preview` tag.
 
 ```bash
-npm install -g @google/gemini-cli@preview
+npm install -g @leeoohoo/open_gemini_cli@preview
 ```
 
 ### Stable
@@ -76,7 +98,7 @@ npm install -g @google/gemini-cli@preview
   and validations. Use `latest` tag.
 
 ```bash
-npm install -g @google/gemini-cli@latest
+npm install -g @leeoohoo/open_gemini_cli@latest
 ```
 
 ### Nightly
@@ -86,7 +108,7 @@ npm install -g @google/gemini-cli@latest
   there are pending validations and issues. Use `nightly` tag.
 
 ```bash
-npm install -g @google/gemini-cli@nightly
+npm install -g @leeoohoo/open_gemini_cli@nightly
 ```
 
 ## 📋 Key Features
@@ -352,8 +374,8 @@ for planned features and priorities.
 
 - **[Official Roadmap](./ROADMAP.md)** - See what's coming next.
 - **[Changelog](./docs/changelogs/index.md)** - See recent notable updates.
-- **[NPM Package](https://www.npmjs.com/package/@google/gemini-cli)** - Package
-  registry.
+- **[NPM Package](https://www.npmjs.com/package/@leeoohoo/open_gemini_cli)** -
+  Package registry.
 - **[GitHub Issues](https://github.com/google-gemini/gemini-cli/issues)** -
   Report bugs or request features.
 - **[Security Advisories](https://github.com/google-gemini/gemini-cli/security/advisories)** -

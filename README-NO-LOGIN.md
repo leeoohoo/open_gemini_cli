@@ -45,7 +45,7 @@ chmod +x sync-no-login.sh
 2. 合并到无登录分支：
 
    ```bash
-   git checkout leeoohoo/gemini_cli_no_login
+   git checkout leeoohoo/open_gemini_cli
    git merge main --no-commit --no-ff
    ```
 
@@ -64,12 +64,12 @@ chmod +x sync-no-login.sh
 4. 提交合并：
 
    ```bash
-   git commit -m "chore: merge upstream changes (main -> leeoohoo/gemini_cli_no_login)"
+   git commit -m "chore: merge upstream changes (main -> leeoohoo/open_gemini_cli)"
    ```
 
 5. 推送到你的仓库：
    ```bash
-   git push myrepo leeoohoo/gemini_cli_no_login
+   git push myrepo leeoohoo/open_gemini_cli
    ```
 
 ### 处理合并冲突
@@ -148,7 +148,7 @@ npm run preflight
 如有问题，请参考：
 
 - 官方文档：https://github.com/google-gemini/gemini-cli
-- 本分支仓库：https://github.com/leeoohoo/gemini_cli_no_login
+- 本分支仓库：https://github.com/leeoohoo/open_gemini_cli
 
 ---
 

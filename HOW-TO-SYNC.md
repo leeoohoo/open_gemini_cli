@@ -27,7 +27,7 @@ git pull origin main
 #### 步骤2：合并到无登录分支
 
 ```bash
-git checkout leeoohoo/gemini_cli_no_login
+git checkout leeoohoo/open_gemini_cli
 git merge main --no-commit --no-ff
 ```
 
@@ -46,7 +46,7 @@ git rm packages/cli/src/ui/auth/*.tsx
 #### 步骤4：提交合并
 
 ```bash
-git commit -m "chore: merge upstream changes (main -> leeoohoo/gemini_cli_no_login)
+git commit -m "chore: merge upstream changes (main -> leeoohoo/open_gemini_cli)
 
 - Merge latest changes from official repository
 - Maintain no-login modifications
@@ -56,7 +56,7 @@ git commit -m "chore: merge upstream changes (main -> leeoohoo/gemini_cli_no_log
 #### 步骤5：推送到你的仓库
 
 ```bash
-git push myrepo leeoohoo/gemini_cli_no_login
+git push myrepo leeoohoo/open_gemini_cli
 ```
 
 ## 常见问题处理
@@ -116,7 +116,7 @@ git rm <file-path>
 git log origin/main --oneline -n 10
 
 # 查看是否有大的架构变更
-git diff leeoohoo/gemini_cli_no_login...origin/main --stat
+git diff leeoohoo/open_gemini_cli...origin/main --stat
 ```
 
 ### 3. 同步后验证
@@ -177,7 +177,7 @@ git reset --hard HEAD
 # 重新尝试
 git checkout main
 git pull origin main
-git checkout leeoohoo/gemini_cli_no_login
+git checkout leeoohoo/open_gemini_cli
 # 重新开始合并
 ```
 
@@ -191,7 +191,7 @@ git log --oneline -n 20
 git reset --hard <commit-hash>
 
 # 强制推送到仓库
-git push myrepo leeoohoo/gemini_cli_no_login --force
+git push myrepo leeoohoo/open_gemini_cli --force
 ```
 
 ## 联系支持
@@ -200,4 +200,4 @@ git push myrepo leeoohoo/gemini_cli_no_login --force
 
 - `README-NO-LOGIN.md` - 详细文档
 - 官方仓库：https://github.com/google-gemini/gemini-cli
-- 你的仓库：https://github.com/leeoohoo/gemini_cli_no_login
+- 你的仓库：https://github.com/leeoohoo/open_gemini_cli
