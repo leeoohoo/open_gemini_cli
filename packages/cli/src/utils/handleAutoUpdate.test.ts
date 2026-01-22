@@ -44,7 +44,7 @@ describe('handleAutoUpdate', () => {
         latest: '2.0.0',
         current: '1.0.0',
         type: 'major',
-        name: '@google/gemini-cli',
+        name: '@leeoohoo/open_gemini_cli',
       },
       message: 'An update is available!',
     };
@@ -96,7 +96,7 @@ describe('handleAutoUpdate', () => {
   it('should emit "update-received" but not update if auto-updates are disabled', () => {
     mockSettings.merged.general.enableAutoUpdate = false;
     mockGetInstallationInfo.mockReturnValue({
-      updateCommand: 'npm i -g @google/gemini-cli@latest',
+      updateCommand: 'npm i -g @leeoohoo/open_gemini_cli@latest',
       updateMessage: 'Please update manually.',
       isGlobal: true,
       packageManager: PackageManager.NPM,
@@ -163,7 +163,7 @@ describe('handleAutoUpdate', () => {
 
   it('should attempt to perform an update when conditions are met', async () => {
     mockGetInstallationInfo.mockReturnValue({
-      updateCommand: 'npm i -g @google/gemini-cli@latest',
+      updateCommand: 'npm i -g @leeoohoo/open_gemini_cli@latest',
       updateMessage: 'This is an additional message.',
       isGlobal: false,
       packageManager: PackageManager.NPM,
@@ -182,7 +182,7 @@ describe('handleAutoUpdate', () => {
   it('should emit "update-failed" when the update process fails', async () => {
     await new Promise<void>((resolve) => {
       mockGetInstallationInfo.mockReturnValue({
-        updateCommand: 'npm i -g @google/gemini-cli@latest',
+        updateCommand: 'npm i -g @leeoohoo/open_gemini_cli@latest',
         updateMessage: 'This is an additional message.',
         isGlobal: false,
         packageManager: PackageManager.NPM,
@@ -199,14 +199,14 @@ describe('handleAutoUpdate', () => {
 
     expect(updateEventEmitter.emit).toHaveBeenCalledWith('update-failed', {
       message:
-        'Automatic update failed. Please try updating manually. (command: npm i -g @google/gemini-cli@2.0.0)',
+        'Automatic update failed. Please try updating manually. (command: npm i -g @leeoohoo/open_gemini_cli@2.0.0)',
     });
   });
 
   it('should emit "update-failed" when the spawn function throws an error', async () => {
     await new Promise<void>((resolve) => {
       mockGetInstallationInfo.mockReturnValue({
-        updateCommand: 'npm i -g @google/gemini-cli@latest',
+        updateCommand: 'npm i -g @leeoohoo/open_gemini_cli@latest',
         updateMessage: 'This is an additional message.',
         isGlobal: false,
         packageManager: PackageManager.NPM,
@@ -236,7 +236,7 @@ describe('handleAutoUpdate', () => {
       },
     };
     mockGetInstallationInfo.mockReturnValue({
-      updateCommand: 'npm i -g @google/gemini-cli@latest',
+      updateCommand: 'npm i -g @leeoohoo/open_gemini_cli@latest',
       updateMessage: 'This is an additional message.',
       isGlobal: false,
       packageManager: PackageManager.NPM,
@@ -245,7 +245,7 @@ describe('handleAutoUpdate', () => {
     handleAutoUpdate(mockUpdateInfo, mockSettings, '/root', mockSpawn);
 
     expect(mockSpawn).toHaveBeenCalledWith(
-      'npm i -g @google/gemini-cli@nightly',
+      'npm i -g @leeoohoo/open_gemini_cli@nightly',
       {
         shell: true,
         stdio: 'ignore',
@@ -257,7 +257,7 @@ describe('handleAutoUpdate', () => {
   it('should emit "update-success" when the update process succeeds', async () => {
     await new Promise<void>((resolve) => {
       mockGetInstallationInfo.mockReturnValue({
-        updateCommand: 'npm i -g @google/gemini-cli@latest',
+        updateCommand: 'npm i -g @leeoohoo/open_gemini_cli@latest',
         updateMessage: 'This is an additional message.',
         isGlobal: false,
         packageManager: PackageManager.NPM,
@@ -309,7 +309,7 @@ describe('setUpdateHandler', () => {
         latest: '2.0.0',
         current: '1.0.0',
         type: 'major',
-        name: '@google/gemini-cli',
+        name: '@leeoohoo/open_gemini_cli',
       },
       message: 'Update available',
     };
@@ -364,7 +364,7 @@ describe('setUpdateHandler', () => {
         latest: '2.0.0',
         current: '1.0.0',
         type: 'major',
-        name: '@google/gemini-cli',
+        name: '@leeoohoo/open_gemini_cli',
       },
       message: 'Update available',
     };
