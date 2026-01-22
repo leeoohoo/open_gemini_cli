@@ -17,7 +17,6 @@ import {
 import { GeminiAgent, Session } from './zedIntegration.js';
 import * as acp from '@agentclientprotocol/sdk';
 import {
-  AuthType,
   ToolConfirmationOutcome,
   StreamEventType,
   isWithinRoot,
@@ -26,7 +25,7 @@ import {
   type Config,
   type MessageBus,
 } from '@google/gemini-cli-core';
-import { SettingScope, type LoadedSettings } from '../config/settings.js';
+import { type LoadedSettings } from '../config/settings.js';
 import { loadCliConfig, type CliArgs } from '../config/config.js';
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
@@ -106,7 +105,6 @@ describe('GeminiAgent', () => {
     } as unknown as Mocked<Awaited<ReturnType<typeof loadCliConfig>>>;
     mockSettings = {
       merged: {
-        security: { auth: { selectedType: 'login_with_google' } },
         mcpServers: {},
       },
       setValue: vi.fn(),
@@ -128,23 +126,16 @@ describe('GeminiAgent', () => {
     });
 
     expect(response.protocolVersion).toBe(acp.PROTOCOL_VERSION);
-    expect(response.authMethods).toHaveLength(3);
+    expect(response.authMethods).toHaveLength(0);
     expect(response.agentCapabilities?.loadSession).toBe(false);
   });
 
-  it('should authenticate correctly', async () => {
-    await agent.authenticate({
-      methodId: AuthType.LOGIN_WITH_GOOGLE,
-    });
-
-    expect(mockConfig.refreshAuth).toHaveBeenCalledWith(
-      AuthType.LOGIN_WITH_GOOGLE,
-    );
-    expect(mockSettings.setValue).toHaveBeenCalledWith(
-      SettingScope.User,
-      'security.auth.selectedType',
-      AuthType.LOGIN_WITH_GOOGLE,
-    );
+  it('should accept authenticate calls without error', async () => {
+    await expect(
+      agent.authenticate({
+        methodId: 'unused',
+      }),
+    ).resolves.toBeUndefined();
   });
 
   it('should create a new session', async () => {
@@ -188,23 +179,6 @@ describe('GeminiAgent', () => {
       mockArgv,
       { cwd: '/tmp' },
     );
-  });
-
-  it('should handle authentication failure gracefully', async () => {
-    mockConfig.refreshAuth.mockRejectedValue(new Error('Auth failed'));
-    const debugSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-
-    // Should throw RequestError.authRequired()
-    await expect(
-      agent.newSession({
-        cwd: '/tmp',
-        mcpServers: [],
-      }),
-    ).rejects.toMatchObject({
-      message: 'Authentication required',
-    });
-
-    debugSpy.mockRestore();
   });
 
   it('should initialize file system service if client supports it', async () => {
@@ -435,9 +409,20 @@ describe('Session', () => {
       prompt: [{ type: 'text', text: 'Call tool' }],
     });
 
-    expect(mockConnection.requestPermission).toHaveBeenCalled();
-    expect(confirmationDetails.onConfirm).toHaveBeenCalledWith(
-      ToolConfirmationOutcome.ProceedOnce,
+    expect(mockConnection.requestPermission).toHaveBeenCalledWith(
+      expect.objectContaining({
+        sessionId: 'session-1',
+        toolCall: expect.objectContaining({
+          status: 'pending',
+          title: 'Test Tool',
+          kind: 'native',
+        }),
+        options: expect.arrayContaining([
+          expect.objectContaining({
+            optionId: ToolConfirmationOutcome.ProceedOnce,
+          }),
+        ]),
+      }),
     );
   });
 

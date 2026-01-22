@@ -12,11 +12,9 @@ import type {
   FilterFilesOptions,
 } from '@google/gemini-cli-core';
 import {
-  AuthType,
   logToolCall,
   convertToFunctionResponse,
   ToolConfirmationOutcome,
-  clearCachedCredentialFile,
   isNodeError,
   getErrorMessage,
   isWithinRoot,
@@ -36,7 +34,6 @@ import { AcpFileSystemService } from './fileSystemService.js';
 import { Readable, Writable } from 'node:stream';
 import type { Content, Part, FunctionCall } from '@google/genai';
 import type { LoadedSettings } from '../config/settings.js';
-import { SettingScope } from '../config/settings.js';
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import { z } from 'zod';
@@ -76,34 +73,17 @@ export class GeminiAgent {
     private settings: LoadedSettings,
     private argv: CliArgs,
     private connection: acp.AgentSideConnection,
-  ) {}
+  ) {
+    void this.config;
+  }
 
   async initialize(
     args: acp.InitializeRequest,
   ): Promise<acp.InitializeResponse> {
     this.clientCapabilities = args.clientCapabilities;
-    const authMethods = [
-      {
-        id: AuthType.LOGIN_WITH_GOOGLE,
-        name: 'Log in with Google',
-        description: null,
-      },
-      {
-        id: AuthType.USE_GEMINI,
-        name: 'Use Gemini API key',
-        description:
-          'Requires setting the `GEMINI_API_KEY` environment variable',
-      },
-      {
-        id: AuthType.USE_VERTEX_AI,
-        name: 'Vertex AI',
-        description: null,
-      },
-    ];
-
     return {
       protocolVersion: acp.PROTOCOL_VERSION,
-      authMethods,
+      authMethods: [],
       agentCapabilities: {
         loadSession: false,
         promptCapabilities: {
@@ -120,23 +100,7 @@ export class GeminiAgent {
   }
 
   async authenticate({ methodId }: acp.AuthenticateRequest): Promise<void> {
-    const method = z.nativeEnum(AuthType).parse(methodId);
-    const selectedAuthType = this.settings.merged.security.auth.selectedType;
-
-    // Only clear credentials when switching to a different auth method
-    if (selectedAuthType && selectedAuthType !== method) {
-      await clearCachedCredentialFile();
-    }
-
-    // Refresh auth with the requested method
-    // This will reuse existing credentials if they're valid,
-    // or perform new authentication if needed
-    await this.config.refreshAuth(method);
-    this.settings.setValue(
-      SettingScope.User,
-      'security.auth.selectedType',
-      method,
-    );
+    void methodId;
   }
 
   async newSession({
@@ -145,22 +109,6 @@ export class GeminiAgent {
   }: acp.NewSessionRequest): Promise<acp.NewSessionResponse> {
     const sessionId = randomUUID();
     const config = await this.newSessionConfig(sessionId, cwd, mcpServers);
-
-    let isAuthenticated = false;
-    if (this.settings.merged.security.auth.selectedType) {
-      try {
-        await config.refreshAuth(
-          this.settings.merged.security.auth.selectedType,
-        );
-        isAuthenticated = true;
-      } catch (e) {
-        debugLogger.error(`Authentication failed: ${e}`);
-      }
-    }
-
-    if (!isAuthenticated) {
-      throw acp.RequestError.authRequired();
-    }
 
     if (this.clientCapabilities?.fs) {
       const acpFileSystemService = new AcpFileSystemService(

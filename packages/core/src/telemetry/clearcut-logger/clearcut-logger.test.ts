@@ -289,6 +289,7 @@ describe('ClearcutLogger', () => {
       });
 
       vi.spyOn(loggerConfig, 'getContentGeneratorConfig').mockReturnValue({
+        provider: 'google',
         authType: auth_type,
       } as ContentGeneratorConfig);
       logger?.logNewPromptEvent(new UserPromptEvent(1, prompt_id)); // prompt_id == session_id before this

@@ -4,39 +4,45 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Box } from 'ink';
-import { type Config, AuthType } from '@google/gemini-cli-core';
-import { GeminiPrivacyNotice } from './GeminiPrivacyNotice.js';
-import { CloudPaidPrivacyNotice } from './CloudPaidPrivacyNotice.js';
-import { CloudFreePrivacyNotice } from './CloudFreePrivacyNotice.js';
+import { Box, Newline, Text } from 'ink';
+import { type Config } from '@google/gemini-cli-core';
+import { theme } from '../semantic-colors.js';
+import { useKeypress } from '../hooks/useKeypress.js';
 
 interface PrivacyNoticeProps {
   onExit: () => void;
   config: Config;
 }
 
-const PrivacyNoticeText = ({
-  config,
-  onExit,
-}: {
-  config: Config;
-  onExit: () => void;
-}) => {
-  const authType = config.getContentGeneratorConfig()?.authType;
+const PrivacyNoticeText = ({ onExit }: { onExit: () => void }) => {
+  useKeypress(
+    (key) => {
+      if (key.name === 'escape') {
+        onExit();
+      }
+    },
+    { isActive: true },
+  );
 
-  switch (authType) {
-    case AuthType.USE_GEMINI:
-      return <GeminiPrivacyNotice onExit={onExit} />;
-    case AuthType.USE_VERTEX_AI:
-      return <CloudPaidPrivacyNotice onExit={onExit} />;
-    case AuthType.LOGIN_WITH_GOOGLE:
-    default:
-      return <CloudFreePrivacyNotice config={config} onExit={onExit} />;
-  }
+  return (
+    <Box flexDirection="column" marginBottom={1}>
+      <Text bold color={theme.text.accent}>
+        Model Provider Notice
+      </Text>
+      <Newline />
+      <Text color={theme.text.primary}>
+        This CLI uses the configured model provider and your supplied API
+        credentials. Please review your provider&apos;s terms of service and
+        data handling policies.
+      </Text>
+      <Newline />
+      <Text color={theme.text.secondary}>Press Esc to exit.</Text>
+    </Box>
+  );
 };
 
-export const PrivacyNotice = ({ onExit, config }: PrivacyNoticeProps) => (
+export const PrivacyNotice = ({ onExit, config: _config }: PrivacyNoticeProps) => (
   <Box borderStyle="round" padding={1} flexDirection="column">
-    <PrivacyNoticeText config={config} onExit={onExit} />
+    <PrivacyNoticeText onExit={onExit} />
   </Box>
 );

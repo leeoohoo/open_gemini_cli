@@ -48,6 +48,7 @@ describe('LoggingContentGenerator', () => {
       getGoogleAIConfig: vi.fn(),
       getVertexAIConfig: vi.fn(),
       getContentGeneratorConfig: vi.fn().mockReturnValue({
+        provider: 'google',
         authType: 'API_KEY',
       }),
     } as unknown as Config;

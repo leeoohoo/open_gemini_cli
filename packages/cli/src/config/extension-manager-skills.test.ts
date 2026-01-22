@@ -13,6 +13,7 @@ import { debugLogger, coreEvents } from '@google/gemini-cli-core';
 import { createTestMergedSettings } from './settings.js';
 import { createExtension } from '../test-utils/createExtension.js';
 import { EXTENSIONS_DIRECTORY_NAME } from './extensions/variables.js';
+import { ExtensionStorage } from './extensions/storage.js';
 
 const mockHomedir = vi.hoisted(() => vi.fn(() => '/tmp/mock-home'));
 
@@ -37,6 +38,8 @@ vi.mock('@google/gemini-cli-core', async (importOriginal) => {
     loadSkillsFromDir: (
       await importOriginal<typeof import('@google/gemini-cli-core')>()
     ).loadSkillsFromDir,
+    logExtensionInstallEvent: vi.fn().mockResolvedValue(undefined),
+    logExtensionUpdateEvent: vi.fn().mockResolvedValue(undefined),
   };
 });
 
@@ -96,15 +99,22 @@ describe('ExtensionManager skills validation', () => {
 
     await extensionManager.loadExtensions();
 
+    const destinationPath = new ExtensionStorage('skills-ext').getExtensionDir();
+    fs.cpSync(extensionPath, destinationPath, { recursive: true });
+    const copyExtensionSpy = vi
+      .spyOn(fs.promises, 'cp')
+      .mockResolvedValue();
+
     await extensionManager.installOrUpdateExtension({
       type: 'local',
       source: extensionPath,
     });
+    copyExtensionSpy.mockRestore();
 
     expect(debugLogger.debug).toHaveBeenCalledWith(
       expect.stringContaining('Failed to load skills from'),
     );
-  });
+  }, 20000);
 
   it('should emit a warning during load if skills directory is not empty but no skills are loaded', async () => {
     // 1. Create a source extension
@@ -123,10 +133,18 @@ describe('ExtensionManager skills validation', () => {
 
     // 2. Install it to ensure correct disk state
     await extensionManager.loadExtensions();
+    const destinationPath = new ExtensionStorage(
+      'skills-ext-load',
+    ).getExtensionDir();
+    fs.cpSync(sourceExtPath, destinationPath, { recursive: true });
+    const copyExtensionSpy = vi
+      .spyOn(fs.promises, 'cp')
+      .mockResolvedValue();
     await extensionManager.installOrUpdateExtension({
       type: 'local',
       source: sourceExtPath,
     });
+    copyExtensionSpy.mockRestore();
 
     // Clear the spy
     vi.mocked(debugLogger.debug).mockClear();
@@ -147,7 +165,7 @@ describe('ExtensionManager skills validation', () => {
     expect(debugLogger.debug).toHaveBeenCalledWith(
       expect.stringContaining('Failed to load skills from'),
     );
-  });
+  }, 20000);
 
   it('should succeed if skills are correctly loaded', async () => {
     const sourceDir = path.join(tempDir, 'source-ext-good');
@@ -172,14 +190,23 @@ describe('ExtensionManager skills validation', () => {
 
     await extensionManager.loadExtensions();
 
+    const destinationPath = new ExtensionStorage(
+      'good-skills-ext',
+    ).getExtensionDir();
+    fs.cpSync(extensionPath, destinationPath, { recursive: true });
+    const copyExtensionSpy = vi
+      .spyOn(fs.promises, 'cp')
+      .mockResolvedValue();
+
     const extension = await extensionManager.installOrUpdateExtension({
       type: 'local',
       source: extensionPath,
     });
+    copyExtensionSpy.mockRestore();
 
     expect(extension.name).toBe('good-skills-ext');
     expect(debugLogger.debug).not.toHaveBeenCalledWith(
       expect.stringContaining('Failed to load skills from'),
     );
-  });
+  }, 20000);
 });

@@ -144,6 +144,7 @@ describe('GeminiChat', () => {
       getDebugMode: () => false,
       getPreviewFeatures: () => false,
       getContentGeneratorConfig: vi.fn().mockImplementation(() => ({
+        provider: 'google',
         authType: 'oauth-personal',
         model: currentModel,
       })),
@@ -1780,6 +1781,7 @@ describe('GeminiChat', () => {
     it('should call handleFallback with the specific failed model and retry if handler returns true', async () => {
       const authType = AuthType.LOGIN_WITH_GOOGLE;
       vi.mocked(mockConfig.getContentGeneratorConfig).mockReturnValue({
+        provider: 'google',
         authType,
       });
 

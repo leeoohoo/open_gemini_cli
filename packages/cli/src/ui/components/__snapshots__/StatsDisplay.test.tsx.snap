@@ -167,7 +167,7 @@ exports[`<StatsDisplay /> > Quota Display > renders quota information for unused
 │  gemini-2.5-flash               -        50.0% (Resets in 2h)                                    │
 │                                                                                                  │
 │  Usage limits span all sessions and reset daily.                                                 │
-│  /auth to upgrade or switch to API key.                                                          │
+│  Use /model or /settings to adjust models or provider settings.                                  │
 │                                                                                                  │
 │                                                                                                  │
 │  » Tip: For a full token breakdown, run \`/stats model\`.                                          │
@@ -197,7 +197,7 @@ exports[`<StatsDisplay /> > Quota Display > renders quota information when quota
 │  gemini-2.5-pro                 1    75.0% (Resets in 1h 30m)                                    │
 │                                                                                                  │
 │  Usage limits span all sessions and reset daily.                                                 │
-│  /auth to upgrade or switch to API key.                                                          │
+│  Use /model or /settings to adjust models or provider settings.                                  │
 │                                                                                                  │
 │                                                                                                  │
 │  » Tip: For a full token breakdown, run \`/stats model\`.                                          │

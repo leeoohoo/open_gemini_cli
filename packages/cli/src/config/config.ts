@@ -629,11 +629,20 @@ export async function loadCliConfig(
   );
   policyEngineConfig.nonInteractive = !interactive;
 
-  const defaultModel = settings.general?.previewFeatures
-    ? PREVIEW_GEMINI_MODEL_AUTO
-    : DEFAULT_GEMINI_MODEL_AUTO;
+  const modelProvider = settings.model?.provider ?? 'openai';
+  const openaiSettings = settings.model?.openai ?? {};
+  const envModel =
+    modelProvider === 'openai'
+      ? process.env['OPENAI_MODEL']
+      : process.env['GEMINI_MODEL'];
+  const defaultModel =
+    modelProvider === 'openai'
+      ? openaiSettings.model ?? envModel ?? 'gpt-4o-mini'
+      : settings.general?.previewFeatures
+        ? PREVIEW_GEMINI_MODEL_AUTO
+        : DEFAULT_GEMINI_MODEL_AUTO;
   const specifiedModel =
-    argv.model || process.env['GEMINI_MODEL'] || settings.model?.name;
+    argv.model || envModel || settings.model?.name || openaiSettings.model;
 
   const resolvedModel =
     specifiedModel === GEMINI_MODEL_ALIAS_AUTO
@@ -651,9 +660,18 @@ export async function loadCliConfig(
   const extensionsEnabled = settings.admin?.extensions?.enabled ?? true;
   const adminSkillsEnabled = settings.admin?.skills?.enabled ?? true;
 
+  const embeddingModel =
+    modelProvider === 'openai'
+      ? openaiSettings.embeddingModel ??
+        process.env['OPENAI_EMBEDDING_MODEL'] ??
+        'text-embedding-3-large'
+      : DEFAULT_GEMINI_EMBEDDING_MODEL;
+
   return new Config({
     sessionId,
-    embeddingModel: DEFAULT_GEMINI_EMBEDDING_MODEL,
+    embeddingModel,
+    modelProvider,
+    openai: openaiSettings,
     sandbox: sandboxConfig,
     targetDir: cwd,
     includeDirectories,

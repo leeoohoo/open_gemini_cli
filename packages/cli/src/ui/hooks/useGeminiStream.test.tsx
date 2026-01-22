@@ -28,7 +28,6 @@ import type {
 } from '@google/gemini-cli-core';
 import {
   ApprovalMode,
-  AuthType,
   GeminiEventType as ServerGeminiEventType,
   ToolErrorType,
   ToolConfirmationOutcome,
@@ -185,10 +184,11 @@ describe('useGeminiStream', () => {
     };
 
     const contentGeneratorConfig = {
+      provider: 'openai',
+      openai: {
+        apiKey: 'test-key',
+      },
       model: 'test-model',
-      apiKey: 'test-key',
-      vertexai: false,
-      authType: AuthType.USE_GEMINI,
     };
 
     mockConfig = {
@@ -1657,10 +1657,10 @@ describe('useGeminiStream', () => {
   });
 
   describe('Error Handling', () => {
-    it('should call parseAndFormatApiError with the correct authType on stream initialization failure', async () => {
+    it('should call parseAndFormatApiError with the correct provider on stream initialization failure', async () => {
       // 1. Setup
       const mockError = new Error('Rate limit exceeded');
-      const mockAuthType = AuthType.LOGIN_WITH_GOOGLE;
+      const mockProvider = 'openai';
       mockParseAndFormatApiError.mockClear();
       mockSendMessageStream.mockReturnValue(
         (async function* () {
@@ -1672,7 +1672,7 @@ describe('useGeminiStream', () => {
       const testConfig = {
         ...mockConfig,
         getContentGeneratorConfig: vi.fn(() => ({
-          authType: mockAuthType,
+          provider: mockProvider,
         })),
         getModel: vi.fn(() => 'gemini-2.5-pro'),
       } as unknown as Config;
@@ -1708,7 +1708,7 @@ describe('useGeminiStream', () => {
       await waitFor(() => {
         expect(mockParseAndFormatApiError).toHaveBeenCalledWith(
           'Rate limit exceeded',
-          mockAuthType,
+          mockProvider,
           undefined,
           'gemini-2.5-pro',
           'gemini-2.5-flash',

@@ -16,6 +16,7 @@ import { GoogleGenAI } from '@google/genai';
 import { createCodeAssistContentGenerator } from '../code_assist/codeAssist.js';
 import type { Config } from '../config/config.js';
 import { loadApiKey } from './apiKeyCredentialStorage.js';
+import { OpenAIContentGenerator } from './openaiContentGenerator.js';
 
 import type { UserTierId } from '../code_assist/types.js';
 import { LoggingContentGenerator } from './loggingContentGenerator.js';
@@ -54,17 +55,60 @@ export enum AuthType {
   COMPUTE_ADC = 'compute-default-credentials',
 }
 
+export type ModelProvider = 'openai' | 'google';
+
+export type OpenAIProviderSettings = {
+  apiKey?: string;
+  baseUrl?: string;
+  model?: string;
+  embeddingModel?: string;
+  headers?: Record<string, string>;
+  timeoutMs?: number;
+  maxRetries?: number;
+  toolsEnabled?: boolean;
+  toolChoice?: 'auto' | 'none' | 'required' | { name: string };
+};
+
 export type ContentGeneratorConfig = {
+  provider: ModelProvider;
   apiKey?: string;
   vertexai?: boolean;
   authType?: AuthType;
   proxy?: string;
+  openai?: OpenAIProviderSettings;
 };
 
 export async function createContentGeneratorConfig(
   config: Config,
   authType: AuthType | undefined,
 ): Promise<ContentGeneratorConfig> {
+  const provider =
+    config.getModelProvider?.() ?? (authType ? 'google' : 'openai');
+  const proxy = config?.getProxy();
+
+  if (provider === 'openai') {
+    const openaiSettings = config.getOpenAISettings?.() ?? {};
+    const envApiKey = process.env['OPENAI_API_KEY'];
+    const envBaseUrl = process.env['OPENAI_BASE_URL'];
+    const envModel = process.env['OPENAI_MODEL'];
+    const envEmbeddingModel = process.env['OPENAI_EMBEDDING_MODEL'];
+
+    return {
+      provider: 'openai',
+      proxy,
+      openai: {
+        ...openaiSettings,
+        apiKey: openaiSettings.apiKey ?? envApiKey,
+        baseUrl: openaiSettings.baseUrl ?? envBaseUrl,
+        model: openaiSettings.model ?? envModel ?? config.getModel(),
+        embeddingModel:
+          openaiSettings.embeddingModel ??
+          envEmbeddingModel ??
+          config.getEmbeddingModel(),
+      },
+    };
+  }
+
   const geminiApiKey =
     process.env['GEMINI_API_KEY'] || (await loadApiKey()) || undefined;
   const googleApiKey = process.env['GOOGLE_API_KEY'] || undefined;
@@ -75,8 +119,9 @@ export async function createContentGeneratorConfig(
   const googleCloudLocation = process.env['GOOGLE_CLOUD_LOCATION'] || undefined;
 
   const contentGeneratorConfig: ContentGeneratorConfig = {
+    provider: 'google',
     authType,
-    proxy: config?.getProxy(),
+    proxy,
   };
 
   // If we are using Google auth or we are in Cloud Shell, there is nothing else to validate for now
@@ -118,6 +163,12 @@ export async function createContentGenerator(
         gcConfig.fakeResponses,
       );
       return new LoggingContentGenerator(fakeGenerator, gcConfig);
+    }
+    if (config.provider === 'openai') {
+      return new LoggingContentGenerator(
+        new OpenAIContentGenerator(config.openai ?? {}),
+        gcConfig,
+      );
     }
     const version = await getVersion();
     const model = resolveModel(

@@ -98,13 +98,11 @@ export const AboutBox: React.FC<AboutBoxProps> = ({
     <Box flexDirection="row">
       <Box width="35%">
         <Text bold color={theme.text.link}>
-          Auth Method
+          Provider
         </Text>
       </Box>
       <Box>
-        <Text color={theme.text.primary}>
-          {selectedAuthType.startsWith('oauth') ? 'OAuth' : selectedAuthType}
-        </Text>
+        <Text color={theme.text.primary}>{selectedAuthType}</Text>
       </Box>
     </Box>
     {userEmail && (

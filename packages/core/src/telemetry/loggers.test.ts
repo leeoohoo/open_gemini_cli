@@ -196,6 +196,7 @@ describe('loggers', () => {
         getCoreTools: () => ['ls', 'read-file'],
         getApprovalMode: () => 'default',
         getContentGeneratorConfig: () => ({
+          provider: 'google',
           model: 'test-model',
           apiKey: 'test-api-key',
           authType: AuthType.USE_VERTEX_AI,
@@ -652,6 +653,7 @@ describe('loggers', () => {
       getTelemetryLogPromptsEnabled: () => true,
       isInteractive: () => false,
       getContentGeneratorConfig: () => ({
+        provider: 'google',
         authType: AuthType.LOGIN_WITH_GOOGLE,
       }),
     } as Config;
@@ -728,6 +730,7 @@ describe('loggers', () => {
         getTelemetryLogPromptsEnabled: () => true, // Enabled
         isInteractive: () => false,
         getContentGeneratorConfig: () => ({
+          provider: 'google',
           authType: AuthType.USE_GEMINI,
         }),
       } as Config;
@@ -815,6 +818,7 @@ describe('loggers', () => {
         getTelemetryLogPromptsEnabled: () => false, // Disabled
         isInteractive: () => false,
         getContentGeneratorConfig: () => ({
+          provider: 'google',
           authType: AuthType.USE_VERTEX_AI,
         }),
       } as Config;
@@ -869,6 +873,7 @@ describe('loggers', () => {
         isInteractive: () => false,
         getUsageStatisticsEnabled: () => true,
         getContentGeneratorConfig: () => ({
+          provider: 'google',
           authType: AuthType.USE_GEMINI,
         }),
       } as Config;
@@ -992,7 +997,7 @@ describe('loggers', () => {
       getTargetDir: () => 'target-dir',
       getProxy: () => 'http://test.proxy.com:8080',
       getContentGeneratorConfig: () =>
-        ({ model: 'test-model' }) as ContentGeneratorConfig,
+        ({ provider: 'openai', model: 'test-model' }) as ContentGeneratorConfig,
       getModel: () => 'test-model',
       getEmbeddingModel: () => 'test-embedding-model',
       getWorkingDir: () => 'test-working-dir',

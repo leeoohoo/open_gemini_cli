@@ -91,7 +91,7 @@ export const usePrivacySettings = (config: Config) => {
 function getCodeAssistServerOrFail(config: Config): CodeAssistServer {
   const server = getCodeAssistServer(config);
   if (server === undefined) {
-    throw new Error('Oauth not being used');
+    throw new Error('Privacy settings are not available for this provider');
   } else if (server.projectId === undefined) {
     throw new Error('CodeAssist server is missing a project ID');
   }

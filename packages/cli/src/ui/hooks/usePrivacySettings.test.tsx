@@ -54,7 +54,9 @@ describe('usePrivacySettings', () => {
       expect(result.current.privacyState.isLoading).toBe(false);
     });
 
-    expect(result.current.privacyState.error).toBe('Oauth not being used');
+    expect(result.current.privacyState.error).toBe(
+      'Privacy settings are not available for this provider',
+    );
   });
 
   it('should handle paid tier users correctly', async () => {

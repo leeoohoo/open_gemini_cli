@@ -388,7 +388,8 @@ describe('Server Config (config.ts)', () => {
     it('should refresh auth and update config', async () => {
       const config = new Config(baseParams);
       const authType = AuthType.USE_GEMINI;
-      const mockContentConfig = {
+      const mockContentConfig: ContentGeneratorConfig = {
+        provider: 'google',
         apiKey: 'test-key',
       };
 
@@ -414,7 +415,7 @@ describe('Server Config (config.ts)', () => {
 
       vi.mocked(createContentGeneratorConfig).mockImplementation(
         async (_: Config, authType: AuthType | undefined) =>
-          ({ authType }) as unknown as ContentGeneratorConfig,
+          ({ provider: 'google', authType }) as ContentGeneratorConfig,
       );
 
       await config.refreshAuth(AuthType.USE_GEMINI);
@@ -427,7 +428,7 @@ describe('Server Config (config.ts)', () => {
 
       vi.mocked(createContentGeneratorConfig).mockImplementation(
         async (_: Config, authType: AuthType | undefined) =>
-          ({ authType }) as unknown as ContentGeneratorConfig,
+          ({ provider: 'google', authType }) as ContentGeneratorConfig,
       );
 
       await config.refreshAuth(AuthType.USE_GEMINI);
@@ -444,7 +445,7 @@ describe('Server Config (config.ts)', () => {
 
       vi.mocked(createContentGeneratorConfig).mockImplementation(
         async (_: Config, authType: AuthType | undefined) =>
-          ({ authType }) as unknown as ContentGeneratorConfig,
+          ({ provider: 'google', authType }) as ContentGeneratorConfig,
       );
 
       await config.refreshAuth(AuthType.USE_GEMINI);
@@ -461,7 +462,7 @@ describe('Server Config (config.ts)', () => {
 
       vi.mocked(createContentGeneratorConfig).mockImplementation(
         async (_: Config, authType: AuthType | undefined) =>
-          ({ authType }) as unknown as ContentGeneratorConfig,
+          ({ provider: 'google', authType }) as ContentGeneratorConfig,
       );
 
       await config.refreshAuth(AuthType.USE_VERTEX_AI);
@@ -1396,7 +1397,10 @@ describe('BaseLlmClient Lifecycle', () => {
   it('should successfully initialize BaseLlmClient after refreshAuth is called', async () => {
     const config = new Config(baseParams);
     const authType = AuthType.USE_GEMINI;
-    const mockContentConfig = { model: 'gemini-flash', apiKey: 'test-key' };
+    const mockContentConfig: ContentGeneratorConfig = {
+      provider: 'google',
+      apiKey: 'test-key',
+    };
 
     vi.mocked(createContentGeneratorConfig).mockResolvedValue(
       mockContentConfig,

@@ -6,10 +6,9 @@
 
 import { renderWithProviders } from '../../test-utils/render.js';
 import { describe, it, expect, vi, afterEach } from 'vitest';
+import * as processUtils from '../../utils/processUtils.js';
 import { act } from 'react';
 import { AdminSettingsChangedDialog } from './AdminSettingsChangedDialog.js';
-
-const handleRestartMock = vi.fn();
 
 describe('AdminSettingsChangedDialog', () => {
   afterEach(() => {
@@ -22,30 +21,24 @@ describe('AdminSettingsChangedDialog', () => {
   });
 
   it('restarts on "r" key press', async () => {
-    const { stdin } = renderWithProviders(<AdminSettingsChangedDialog />, {
-      uiActions: {
-        handleRestart: handleRestartMock,
-      },
-    });
+    const relaunchAppSpy = vi.spyOn(processUtils, 'relaunchApp');
+    const { stdin } = renderWithProviders(<AdminSettingsChangedDialog />);
 
     act(() => {
       stdin.write('r');
     });
 
-    expect(handleRestartMock).toHaveBeenCalled();
+    expect(relaunchAppSpy).toHaveBeenCalledTimes(1);
   });
 
   it.each(['r', 'R'])('restarts on "%s" key press', async (key) => {
-    const { stdin } = renderWithProviders(<AdminSettingsChangedDialog />, {
-      uiActions: {
-        handleRestart: handleRestartMock,
-      },
-    });
+    const relaunchAppSpy = vi.spyOn(processUtils, 'relaunchApp');
+    const { stdin } = renderWithProviders(<AdminSettingsChangedDialog />);
 
     act(() => {
       stdin.write(key);
     });
 
-    expect(handleRestartMock).toHaveBeenCalled();
+    expect(relaunchAppSpy).toHaveBeenCalledTimes(1);
   });
 });

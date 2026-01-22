@@ -650,7 +650,8 @@ export const useGeminiStream = (
           type: MessageType.ERROR,
           text: parseAndFormatApiError(
             eventValue.error,
-            config.getContentGeneratorConfig()?.authType,
+            config.getContentGeneratorConfig()?.provider ??
+              config.getContentGeneratorConfig()?.authType,
             undefined,
             config.getModel(),
             DEFAULT_GEMINI_FLASH_MODEL,
@@ -1024,7 +1025,8 @@ export const useGeminiStream = (
                   new UserPromptEvent(
                     promptText.length,
                     prompt_id!,
-                    config.getContentGeneratorConfig()?.authType,
+                    config.getContentGeneratorConfig()?.provider ??
+                      config.getContentGeneratorConfig()?.authType,
                     promptText,
                   ),
                 );
@@ -1106,7 +1108,8 @@ export const useGeminiStream = (
                     type: MessageType.ERROR,
                     text: parseAndFormatApiError(
                       getErrorMessage(error) || 'Unknown error',
-                      config.getContentGeneratorConfig()?.authType,
+                      config.getContentGeneratorConfig()?.provider ??
+                        config.getContentGeneratorConfig()?.authType,
                       undefined,
                       config.getModel(),
                       DEFAULT_GEMINI_FLASH_MODEL,

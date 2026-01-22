@@ -12,7 +12,6 @@ import {
   logCliConfiguration,
   type Config,
 } from '@google/gemini-cli-core';
-import { performInitialAuth } from './auth.js';
 import { validateTheme } from './theme.js';
 import { type LoadedSettings } from '../config/settings.js';
 
@@ -30,10 +29,6 @@ vi.mock('@google/gemini-cli-core', async (importOriginal) => {
     IdeConnectionEvent: vi.fn(),
   };
 });
-
-vi.mock('./auth.js', () => ({
-  performInitialAuth: vi.fn(),
-}));
 
 vi.mock('./theme.js', () => ({
   validateTheme: vi.fn(),
@@ -59,11 +54,6 @@ describe('initializer', () => {
     };
     mockSettings = {
       merged: {
-        security: {
-          auth: {
-            selectedType: 'oauth',
-          },
-        },
       },
     } as unknown as LoadedSettings;
     mockIdeClient = {
@@ -72,7 +62,6 @@ describe('initializer', () => {
     vi.mocked(IdeClient.getInstance).mockResolvedValue(
       mockIdeClient as unknown as IdeClient,
     );
-    vi.mocked(performInitialAuth).mockResolvedValue(null);
     vi.mocked(validateTheme).mockReturnValue(null);
   });
 
@@ -88,7 +77,6 @@ describe('initializer', () => {
       shouldOpenAuthDialog: false,
       geminiMdFileCount: 5,
     });
-    expect(performInitialAuth).toHaveBeenCalledWith(mockConfig, 'oauth');
     expect(validateTheme).toHaveBeenCalledWith(mockSettings);
     expect(logCliConfiguration).toHaveBeenCalled();
     expect(IdeClient.getInstance).not.toHaveBeenCalled();
@@ -113,27 +101,6 @@ describe('initializer', () => {
       mockConfig as unknown as Config,
       expect.any(Object),
     );
-  });
-
-  it('should handle auth error', async () => {
-    vi.mocked(performInitialAuth).mockResolvedValue('Auth failed');
-    const result = await initializeApp(
-      mockConfig as unknown as Config,
-      mockSettings,
-    );
-
-    expect(result.authError).toBe('Auth failed');
-    expect(result.shouldOpenAuthDialog).toBe(true);
-  });
-
-  it('should handle undefined auth type', async () => {
-    mockSettings.merged.security.auth.selectedType = undefined;
-    const result = await initializeApp(
-      mockConfig as unknown as Config,
-      mockSettings,
-    );
-
-    expect(result.shouldOpenAuthDialog).toBe(true);
   });
 
   it('should handle theme error', async () => {

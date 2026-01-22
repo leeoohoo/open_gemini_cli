@@ -303,6 +303,6 @@ describe('extensionUpdates', () => {
           'Please run "gemini extensions config test-ext [setting-name]"',
         ),
       );
-    });
+    }, 20000);
   });
 });

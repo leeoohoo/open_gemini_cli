@@ -257,6 +257,7 @@ function createMockConfig(overrides: Partial<Config> = {}): Config {
     setApprovalMode: () => {},
     getAllowedTools: () => [],
     getContentGeneratorConfig: () => ({
+      provider: 'google',
       model: 'test-model',
       authType: 'oauth-personal',
     }),

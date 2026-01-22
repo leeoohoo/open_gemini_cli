@@ -93,7 +93,10 @@ describe('EditTool', () => {
     mockConfig = {
       getUsageStatisticsEnabled: vi.fn(() => true),
       getSessionId: vi.fn(() => 'mock-session-id'),
-      getContentGeneratorConfig: vi.fn(() => ({ authType: 'mock' })),
+      getContentGeneratorConfig: vi.fn(() => ({
+        provider: 'google',
+        authType: 'mock',
+      })),
       getProxy: vi.fn(() => undefined),
       getGeminiClient: vi.fn().mockReturnValue(geminiClient),
       getBaseLlmClient: vi.fn().mockReturnValue(baseLlmClient),

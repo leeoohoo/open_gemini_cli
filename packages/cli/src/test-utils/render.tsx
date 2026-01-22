@@ -142,9 +142,6 @@ const mockUIActions: UIActions = {
   handleThemeSelect: vi.fn(),
   closeThemeDialog: vi.fn(),
   handleThemeHighlight: vi.fn(),
-  handleAuthSelect: vi.fn(),
-  setAuthState: vi.fn(),
-  onAuthError: vi.fn(),
   handleEditorSelect: vi.fn(),
   exitEditorDialog: vi.fn(),
   exitPrivacyNotice: vi.fn(),
@@ -168,12 +165,8 @@ const mockUIActions: UIActions = {
   handleProQuotaChoice: vi.fn(),
   setQueueErrorMessage: vi.fn(),
   popAllMessages: vi.fn(),
-  handleApiKeySubmit: vi.fn(),
-  handleApiKeyCancel: vi.fn(),
   setBannerVisible: vi.fn(),
   setEmbeddedShellFocused: vi.fn(),
-  setAuthContext: vi.fn(),
-  handleRestart: vi.fn(),
 };
 
 export const renderWithProviders = (

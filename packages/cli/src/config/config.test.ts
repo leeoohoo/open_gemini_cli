@@ -1307,7 +1307,7 @@ describe('loadCliConfig model selection', () => {
     expect(config.getModel()).toBe('gemini-2.5-pro');
   });
 
-  it('uses the default gemini model if nothing is set', async () => {
+  it('uses the default model if nothing is set', async () => {
     process.argv = ['node', 'script.js']; // No model set.
     const argv = await parseArguments(createTestMergedSettings());
     const config = await loadCliConfig(
@@ -1318,7 +1318,7 @@ describe('loadCliConfig model selection', () => {
       argv,
     );
 
-    expect(config.getModel()).toBe('auto-gemini-2.5');
+    expect(config.getModel()).toBe('gpt-4o-mini');
   });
 
   it('always prefers model from argv', async () => {
@@ -1351,7 +1351,7 @@ describe('loadCliConfig model selection', () => {
     expect(config.getModel()).toBe('gemini-2.5-flash-preview');
   });
 
-  it('selects the default auto model if provided via auto alias', async () => {
+  it('selects the default model if provided via auto alias', async () => {
     process.argv = ['node', 'script.js', '--model', 'auto'];
     const argv = await parseArguments(createTestMergedSettings());
     const config = await loadCliConfig(
@@ -1362,7 +1362,7 @@ describe('loadCliConfig model selection', () => {
       argv,
     );
 
-    expect(config.getModel()).toBe('auto-gemini-2.5');
+    expect(config.getModel()).toBe('gpt-4o-mini');
   });
 });
 

@@ -306,7 +306,9 @@ export class BaseLlmClient {
               handleFallback(this.config, currentModel, authType, error)
           : undefined,
         authType:
-          this.authType ?? this.config.getContentGeneratorConfig()?.authType,
+          this.authType ??
+          this.config.getContentGeneratorConfig()?.authType ??
+          this.config.getContentGeneratorConfig()?.provider,
       });
     } catch (error) {
       if (abortSignal?.aborted) {

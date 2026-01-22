@@ -7,7 +7,6 @@
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import { isSubpath } from './paths.js';
-import { marked, type Token } from 'marked';
 import { debugLogger } from './debugLogger.js';
 
 // Simple console logger for import processing
@@ -83,7 +82,7 @@ function hasMessage(err: unknown): err is { message: string } {
   );
 }
 
-// Helper to find all code block and inline code regions using marked
+// Helper to find all code block and inline code regions
 /**
  * Finds all import statements in content without using regex
  * @returns Array of {start, _end, path} objects for each import found
@@ -154,35 +153,107 @@ function isLetter(char: string): boolean {
 
 function findCodeRegions(content: string): Array<[number, number]> {
   const regions: Array<[number, number]> = [];
-  const tokens = marked.lexer(content);
-  let offset = 0;
+  const len = content.length;
 
-  function walk(token: Token, baseOffset: number) {
-    if (token.type === 'code' || token.type === 'codespan') {
-      regions.push([baseOffset, baseOffset + token.raw.length]);
-    }
+  const fenceRegions: Array<[number, number]> = [];
+  let inFence = false;
+  let fenceChar = '';
+  let fenceLen = 0;
+  let fenceStart = 0;
+  let lineStart = 0;
 
-    if ('tokens' in token && token.tokens) {
-      let childOffset = 0;
-      for (const child of token.tokens) {
-        const childIndexInParent = token.raw.indexOf(child.raw, childOffset);
-        if (childIndexInParent === -1) {
-          logger.error(
-            `Could not find child token in parent raw content. Aborting parsing for this branch. Child raw: "${child.raw}"`,
-          );
-          break;
-        }
-        walk(child, baseOffset + childIndexInParent);
-        childOffset = childIndexInParent + child.raw.length;
+  for (let i = 0; i <= len; i++) {
+    const isLineEnd = i === len || content[i] === '\n';
+    if (!isLineEnd) continue;
+
+    const line = content.slice(lineStart, i);
+    const match = line.match(/^ {0,3}([`~]{3,})/);
+
+    if (!inFence && match) {
+      inFence = true;
+      fenceChar = match[1][0];
+      fenceLen = match[1].length;
+      fenceStart = lineStart;
+    } else if (inFence && match) {
+      const isSameFence =
+        match[1][0] === fenceChar && match[1].length >= fenceLen;
+      if (isSameFence) {
+        const end = i < len ? i + 1 : i;
+        fenceRegions.push([fenceStart, end]);
+        inFence = false;
       }
     }
+
+    lineStart = i + 1;
   }
 
-  for (const token of tokens) {
-    walk(token, offset);
-    offset += token.raw.length;
+  if (inFence) {
+    fenceRegions.push([fenceStart, len]);
   }
 
+  fenceRegions.sort((a, b) => a[0] - b[0]);
+  regions.push(...fenceRegions);
+
+  let fenceIndex = 0;
+  const isInsideFenceForScan = (pos: number): boolean => {
+    while (
+      fenceIndex < fenceRegions.length &&
+      pos >= fenceRegions[fenceIndex][1]
+    ) {
+      fenceIndex++;
+    }
+    return (
+      fenceIndex < fenceRegions.length &&
+      pos >= fenceRegions[fenceIndex][0] &&
+      pos < fenceRegions[fenceIndex][1]
+    );
+  };
+  const isInsideFenceAt = (pos: number): boolean => {
+    for (const [start, end] of fenceRegions) {
+      if (pos < start) {
+        return false;
+      }
+      if (pos < end) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  for (let i = 0; i < len; i++) {
+    if (isInsideFenceForScan(i)) {
+      i = fenceRegions[fenceIndex][1] - 1;
+      continue;
+    }
+
+    if (content[i] !== '`') {
+      continue;
+    }
+
+    let j = i;
+    while (j < len && content[j] === '`') {
+      j++;
+    }
+
+    const delimiter = content.slice(i, j);
+    let searchFrom = j;
+    let closeIndex = content.indexOf(delimiter, searchFrom);
+    while (closeIndex !== -1 && isInsideFenceAt(closeIndex)) {
+      searchFrom = closeIndex + delimiter.length;
+      closeIndex = content.indexOf(delimiter, searchFrom);
+    }
+
+    if (closeIndex === -1) {
+      i = j - 1;
+      continue;
+    }
+
+    const end = closeIndex + delimiter.length;
+    regions.push([i, end]);
+    i = end - 1;
+  }
+
+  regions.sort((a, b) => a[0] - b[0]);
   return regions;
 }
 

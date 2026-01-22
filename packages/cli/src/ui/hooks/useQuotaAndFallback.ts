@@ -5,7 +5,6 @@
  */
 
 import {
-  AuthType,
   type Config,
   type FallbackModelHandler,
   type FallbackIntent,
@@ -45,11 +44,11 @@ export function useQuotaAndFallback({
       fallbackModel,
       error,
     ): Promise<FallbackIntent | null> => {
-      // Fallbacks are currently only handled for OAuth users.
+      // Fallbacks are only handled for Google provider flows.
       const contentGeneratorConfig = config.getContentGeneratorConfig();
       if (
         !contentGeneratorConfig ||
-        contentGeneratorConfig.authType !== AuthType.LOGIN_WITH_GOOGLE
+        contentGeneratorConfig.provider !== 'google'
       ) {
         return null;
       }
@@ -70,7 +69,6 @@ export function useQuotaAndFallback({
           error.retryDelayMs ? getResetTimeMessage(error.retryDelayMs) : null,
           `/stats for usage details`,
           `/model to switch models.`,
-          `/auth to switch to API key.`,
         ].filter(Boolean);
         message = messageLines.join('\n');
       } else if (

@@ -9,7 +9,7 @@ import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 import type { SlashCommand, CommandContext } from './types.js';
 import { createMockCommandContext } from '../../test-utils/mockCommandContext.js';
 import type { Content } from '@google/genai';
-import { AuthType, type GeminiClient } from '@google/gemini-cli-core';
+import type { GeminiClient } from '@google/gemini-cli-core';
 
 import * as fsPromises from 'node:fs/promises';
 import { chatCommand, debugCommand } from './chatCommand.js';
@@ -80,7 +80,7 @@ describe('chatCommand', () => {
             getProjectTempDir: () => '/project/root/.gemini/tmp/mockhash',
           },
           getContentGeneratorConfig: () => ({
-            authType: AuthType.LOGIN_WITH_GOOGLE,
+            provider: 'openai',
           }),
         },
         logger: {
@@ -226,7 +226,7 @@ describe('chatCommand', () => {
 
       expect(mockCheckpointExists).not.toHaveBeenCalled(); // Should skip existence check
       expect(mockSaveCheckpoint).toHaveBeenCalledWith(
-        { history, authType: AuthType.LOGIN_WITH_GOOGLE },
+        { history, provider: 'openai' },
         tag,
       );
       expect(result).toEqual({
@@ -268,7 +268,7 @@ describe('chatCommand', () => {
       });
     });
 
-    it('should resume a conversation with matching authType', async () => {
+    it('should resume a conversation with matching provider', async () => {
       const conversation: Content[] = [
         { role: 'user', parts: [{ text: 'system setup' }] },
         { role: 'user', parts: [{ text: 'hello gemini' }] },
@@ -276,7 +276,7 @@ describe('chatCommand', () => {
       ];
       mockLoadCheckpoint.mockResolvedValue({
         history: conversation,
-        authType: AuthType.LOGIN_WITH_GOOGLE,
+        provider: 'openai',
       });
 
       const result = await resumeCommand?.action?.(mockContext, goodTag);
@@ -291,7 +291,7 @@ describe('chatCommand', () => {
       });
     });
 
-    it('should block resuming a conversation with mismatched authType', async () => {
+    it('should block resuming a conversation with mismatched provider', async () => {
       const conversation: Content[] = [
         { role: 'user', parts: [{ text: 'system setup' }] },
         { role: 'user', parts: [{ text: 'hello gemini' }] },
@@ -299,7 +299,7 @@ describe('chatCommand', () => {
       ];
       mockLoadCheckpoint.mockResolvedValue({
         history: conversation,
-        authType: AuthType.USE_GEMINI,
+        provider: 'google',
       });
 
       const result = await resumeCommand?.action?.(mockContext, goodTag);
@@ -307,7 +307,8 @@ describe('chatCommand', () => {
       expect(result).toEqual({
         type: 'message',
         messageType: 'error',
-        content: `Cannot resume chat. It was saved with a different authentication method (${AuthType.USE_GEMINI}) than the current one (${AuthType.LOGIN_WITH_GOOGLE}).`,
+        content:
+          'Cannot resume chat. It was saved with a different provider (google) than the current one (openai).',
       });
     });
 

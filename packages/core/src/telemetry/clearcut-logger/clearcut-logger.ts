@@ -1480,7 +1480,8 @@ export class ClearcutLogger {
       {
         gemini_cli_key: EventMetadataKey.GEMINI_CLI_AUTH_TYPE,
         value: JSON.stringify(
-          this.config?.getContentGeneratorConfig()?.authType,
+          this.config?.getContentGeneratorConfig()?.provider ??
+            this.config?.getContentGeneratorConfig()?.authType,
         ),
       },
       {

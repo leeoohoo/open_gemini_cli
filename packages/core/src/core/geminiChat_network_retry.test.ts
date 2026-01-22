@@ -75,6 +75,7 @@ describe('GeminiChat Network Retries', () => {
       getDebugMode: () => false,
       getPreviewFeatures: () => false,
       getContentGeneratorConfig: vi.fn().mockReturnValue({
+        provider: 'google',
         authType: 'oauth-personal',
         model: 'test-model',
       }),
