@@ -1,0 +1,160 @@
+name: Check Upstream Updates
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: check-updates
+  cancel-in-progress: false
+
+jobs:
+  check-updates:
+    runs-on: ubuntu-latest
+    env:
+      UPSTREAM_REPO: google-gemini/gemini-cli
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Configure git
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Add upstream remote and fetch
+        id: upstream
+        run: |
+          set -euo pipefail
+          UPSTREAM_URL="https://github.com/${UPSTREAM_REPO}.git"
+          echo "Using upstream: ${UPSTREAM_URL}"
+          if git remote get-url upstream >/dev/null 2>&1; then
+            git remote set-url upstream "${UPSTREAM_URL}"
+          else
+            git remote add upstream "${UPSTREAM_URL}"
+          fi
+          git fetch upstream --prune
+          UPSTREAM_SHA=$(git rev-parse upstream/main)
+          echo "Upstream SHA: ${UPSTREAM_SHA}"
+          echo "upstream_sha=${UPSTREAM_SHA}" >> "${GITHUB_OUTPUT}"
+
+      - name: Compare with last synced SHA
+        id: compare
+        run: |
+          set -euo pipefail
+          LAST_SHA=""
+          if [ -f .sync/last_upstream_sha ]; then
+            LAST_SHA=$(tr -d ' \n\r' < .sync/last_upstream_sha)
+          fi
+          echo "Last synced SHA: ${LAST_SHA:-<none>}"
+          echo "last_sha=${LAST_SHA}" >> "${GITHUB_OUTPUT}"
+          if [ -n "${LAST_SHA}" ] && [ "${LAST_SHA}" = "${{ steps.upstream.outputs.upstream_sha }}" ]; then
+            echo "No updates detected."
+            echo "has_update=false" >> "${GITHUB_OUTPUT}"
+          else
+            echo "Updates detected."
+            echo "has_update=true" >> "${GITHUB_OUTPUT}"
+          fi
+
+      - name: Prepare remotes and branches for sync
+        if: steps.compare.outputs.has_update == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          BASE_BRANCH="${{ github.event.repository.default_branch }}"
+          if [ -z "${BASE_BRANCH}" ]; then
+            BASE_BRANCH="main"
+          fi
+          echo "Base branch: ${BASE_BRANCH}"
+
+          if ! git show-ref --verify --quiet refs/heads/main; then
+            echo "Creating local main from upstream/main"
+            git branch main upstream/main
+          fi
+
+          echo "Creating local no-login branch expected by sync script"
+          git branch -f "leeoohoo/open_gemini_cli" "${BASE_BRANCH}"
+
+          FORK_URL="https://github.com/${GITHUB_REPOSITORY}.git"
+          UPSTREAM_URL="https://github.com/${UPSTREAM_REPO}.git"
+          echo "FORK_URL=${FORK_URL}" >> "${GITHUB_ENV}"
+          echo "UPSTREAM_URL=${UPSTREAM_URL}" >> "${GITHUB_ENV}"
+
+          echo "Configuring remotes for sync script"
+          git remote add myrepo "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git remote set-url origin "${UPSTREAM_URL}"
+          git fetch origin --prune
+
+      - name: Run sync script
+        if: steps.compare.outputs.has_update == 'true'
+        run: |
+          set -euo pipefail
+          echo "Running sync-no-login.sh"
+          bash ./sync-no-login.sh
+
+      - name: Create sync branch and record upstream SHA
+        if: steps.compare.outputs.has_update == 'true'
+        id: branch
+        run: |
+          set -euo pipefail
+          DATE_TAG=$(date -u +%Y%m%d)
+          BRANCH_NAME="sync-update-${DATE_TAG}"
+          if git ls-remote --exit-code --heads myrepo "${BRANCH_NAME}" >/dev/null 2>&1; then
+            BRANCH_NAME="${BRANCH_NAME}-${GITHUB_RUN_ID}"
+          fi
+          echo "Sync branch: ${BRANCH_NAME}"
+          git checkout -b "${BRANCH_NAME}"
+          mkdir -p .sync
+          echo "${{ steps.upstream.outputs.upstream_sha }}" > .sync/last_upstream_sha
+          git add .sync/last_upstream_sha
+          git commit -m "chore: record upstream sync ${{ steps.upstream.outputs.upstream_sha }}"
+          git push myrepo "${BRANCH_NAME}"
+          echo "branch_name=${BRANCH_NAME}" >> "${GITHUB_OUTPUT}"
+
+      - name: Create pull request and add labels
+        if: steps.compare.outputs.has_update == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          BASE_BRANCH="${{ github.event.repository.default_branch }}"
+          if [ -z "${BASE_BRANCH}" ]; then
+            BASE_BRANCH="main"
+          fi
+          BRANCH_NAME="${{ steps.branch.outputs.branch_name }}"
+          UPSTREAM_SHA="${{ steps.upstream.outputs.upstream_sha }}"
+          LAST_SHA="${{ steps.compare.outputs.last_sha }}"
+
+          PR_TITLE="chore: sync upstream updates (${BRANCH_NAME})"
+          PR_BODY=$(cat <<PR_BODY_EOF
+This PR syncs upstream updates from ${UPSTREAM_REPO}.
+
+- Upstream SHA: ${UPSTREAM_SHA}
+- Previous SHA: ${LAST_SHA:-<none>}
+PR_BODY_EOF
+)
+
+          echo "Creating PR from ${BRANCH_NAME} to ${BASE_BRANCH}"
+          PR_URL=$(gh pr list --head "${BRANCH_NAME}" --json url --jq '.[0].url')
+          if [ -z "${PR_URL}" ]; then
+            PR_URL=$(gh pr create --title "${PR_TITLE}" --body "${PR_BODY}" --base "${BASE_BRANCH}" --head "${BRANCH_NAME}")
+            echo "Created PR: ${PR_URL}"
+          else
+            echo "PR already exists: ${PR_URL}"
+          fi
+
+          echo "Adding labels to PR"
+          gh label create "sync-update" --color "0e8a16" --description "Automated upstream sync" --force
+          gh label create "needs-review" --color "fbca04" --description "Needs review" --force
+          gh pr edit "${PR_URL}" --add-label "sync-update" --add-label "needs-review"
